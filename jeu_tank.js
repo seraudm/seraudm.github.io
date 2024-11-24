@@ -3,24 +3,26 @@ const game = document.getElementById('game');
 const tankSpeed = 10;
 let position = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
 let angle = 0;
-//setInterval(updateBallePosition, 1000);
+
 // Mise à jour de la position des balles
 function updateBulletsPosition(){
-    const listBalles = document.getElementsByClassName("balle");
-    for (balle of listBalles){
-        let xballe = balle.xballe * 1;
-        let yballe = balle.yballe * 1;
-        let angle = balle.angle * 1;
+    const listBullets = game.getElementsByClassName("bullet");
+    for (bullet of listBullets){
 
-        yballe -= Math.cos(angle*Math.PI / 180);
-        xballe += Math.sin(angle*Math.PI / 180);
-
-        balle.style.left= `${xballe}px`;
-        balle.style.left= `${yballe}px`;
-
+        let xbullet = bullet.xbullet * 1;
+        let ybullet = bullet.ybullet * 1;
+        let angle = bullet.angle * 1;
+        
+        ybullet -= Math.cos(angle*Math.PI / 180);
+        xbullet += Math.sin(angle*Math.PI / 180);
+        
+        bullet.style.left= `${xbullet}px`;
+        bullet.style.left= `${ybullet}px`;
+        
     }
 }
 
+setInterval(updateBulletsPosition, 1000);
 // Mise à jour de la position du tank
 function updateTankPosition() {
     tank.style.left = `${position.x}px`;
@@ -59,24 +61,21 @@ document.addEventListener("click", Tir)
 
 function Tir(){
     console.log("tir");
-    const balle = document.createElement("div");
-    balle.className = "balle";
+    const bullet = document.createElement("div");
+    bullet.className = "bullet";
 
-    let xballe= position.x + 60*Math.sin(angle*Math.PI/180);
-    let yballe= position.y - 60*Math.cos(angle*Math.PI/180);;
-
-
-    balle.style.left = `${xballe}px`;
-    balle.style.top = `${yballe}px`;
+    let xbullet= position.x + 60*Math.sin(angle*Math.PI/180);
+    let ybullet= position.y - 60*Math.cos(angle*Math.PI/180);;
 
 
-    balle.setAttribute("angle", angle);
-    balle.setAttribute("xBalle", xballe);
-    balle.setAttribute("yballe", yballe);
+    bullet.style.left = `${xbullet}px`;
+    bullet.style.top = `${ybullet}px`;
 
-    balle.style.transform = `translate(-50%, -50%)`;
-    game.appendChild(balle);
+
+    bullet.setAttribute("angle", angle);
+    bullet.setAttribute("xbullet", xbullet);
+    bullet.setAttribute("ybullet", ybullet);
+
+    bullet.style.transform = `translate(-50%, -50%)`;
+    game.appendChild(bullet);
 }
-
-// Initialiser la position
-updateTankPosition();
