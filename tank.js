@@ -1,7 +1,7 @@
 let listTanks = [];
 let numberTanks = 0;
 
-class tank{
+class Tank{
     constructor (X,Y, angle, color){
         this.created = false;
         this.angle = angle;
@@ -12,9 +12,12 @@ class tank{
     }
 }
 
+
+
 function drawTank(){
     for (tank of listTanks){
-        if (tank.created){
+        if (!(tank.created)){
+            tank.created = true;
             const tankHtml = document.createElement("div");
             const turretHtml  = document.createElement("div");
 
@@ -24,7 +27,7 @@ function drawTank(){
 
             tankHtml.style.left = `${tank.position.x}px`;
             tankHtml.style.top = `${tank.position.y}px`;
-
+            tankHtml.style.backgroundColor = tank.color;
 
             tankHtml.style.transform = `translate(-50%, -50%) rotate(${tank.angle}deg)`;
 

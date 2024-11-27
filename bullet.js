@@ -2,7 +2,7 @@ let listBullets = [];
 let numberBullets = 0;
 const bulletDefaultSpeed = 1;
 
-class bullet {
+class Bullet {
     constructor (X,Y, angle){
         this.created = false;
         this.angle = angle;

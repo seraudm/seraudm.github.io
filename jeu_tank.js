@@ -1,4 +1,4 @@
-const tank = document.getElementById('tank');
+//const tank = document.getElementById('tank');
 const game = document.getElementById('game');
 const tankSpeed = 10;
 let position = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
