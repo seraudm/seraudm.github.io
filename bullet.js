@@ -1,6 +1,6 @@
 let listBullets = [];
 let numberBullets = 0;
-const bulletDefaultSpeed = 1;
+const BulletDefaultSpeed = 5;
 
 class Bullet {
     constructor (X,Y, angle, color){
@@ -8,10 +8,17 @@ class Bullet {
         this.angle = angle;
         this.position = {x: X, y:Y};
         this.nbBounces = 0;
-        this.speed = bulletDefaultSpeed;
+        this.speed = BulletDefaultSpeed;
         this.id = "bullet" + numberBullets;
         this.color = color;
         numberBullets ++;
+    }
+}
+
+function updateBulletsPosition(){
+    for (bullet of listBullets){
+        bullet.position.x += Math.sin(bullet.angle*Math.PI/180) * bullet.speed;
+        bullet.position.y -= Math.cos(bullet.angle*Math.PI/180) * bullet.speed;
     }
 }
 
@@ -26,7 +33,7 @@ function drawBullets(){
 
             bulletHtml.style.left = `${bullet.position.x}px`;
             bulletHtml.style.top = `${bullet.position.y}px`;
-            bulletHtml.style.borderColor = bullet.color;
+            bulletHtml.style.backgroundColor = bullet.color;
 
             game.appendChild(bulletHtml);
         } else {

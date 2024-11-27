@@ -1,28 +1,14 @@
 //const tank = document.getElementById('tank');
 const game = document.getElementById('game');
-const tankSpeed = 10;
-let position = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
-let angle = 0;
 
-// Mise à jour de la position des balles
-function updateBulletsPosition(){
-    const listBullets = game.getElementsByClassName("bullet");
-    for (bullet of listBullets){
 
-        let xbullet = bullet.xbullet * 1;
-        let ybullet = bullet.ybullet * 1;
-        let angle = bullet.angle * 1;
-        
-        ybullet -= Math.cos(angle*Math.PI / 180);
-        xbullet += Math.sin(angle*Math.PI / 180);
-        
-        bullet.style.left= `${xbullet}px`;
-        bullet.style.left= `${ybullet}px`;
-        
-    }
+function tick(){
+    updateBulletsPosition();
+    drawBullets();
+    drawTanks();
 }
 
-setInterval(updateBulletsPosition, 1000);
+setInterval(tick, 20);
 // Mise à jour de la position du tank
 function updateTankPosition() {
     tank.style.left = `${position.x}px`;
@@ -56,26 +42,4 @@ document.addEventListener('keydown', (e) => {
 
 // Gestion des touches pour tirer
 
-document.addEventListener("click", Tir)
-
-
-function Tir(){
-    console.log("tir");
-    const bullet = document.createElement("div");
-    bullet.className = "bullet";
-
-    let xbullet= position.x + 50*Math.sin(angle*Math.PI/180);
-    let ybullet= position.y - 50*Math.cos(angle*Math.PI/180);
-
-
-    bullet.style.left = `${xbullet}px`;
-    bullet.style.top = `${ybullet}px`;
-
-
-    bullet.setAttribute("angle", angle);
-    bullet.setAttribute("xbullet", xbullet);
-    bullet.setAttribute("ybullet", ybullet);
-
-    bullet.style.transform = `translate(-50%, -50%)`;
-    game.appendChild(bullet);
-}
+document.addEventListener("keydown", Tir)

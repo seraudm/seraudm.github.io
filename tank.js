@@ -1,5 +1,6 @@
 let listTanks = [];
 let numberTanks = 0;
+const TankDefaultSpeed = 2;
 
 class Tank{
     constructor (X,Y, angle, color){
@@ -8,6 +9,7 @@ class Tank{
         this.position = {x: X, y:Y};
         this.color = color;
         this.id = "tank" + numberTanks;
+        this.speed = TankDefaultSpeed;
         numberTanks ++;
     }
 
