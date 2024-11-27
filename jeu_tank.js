@@ -1,8 +1,15 @@
 //const tank = document.getElementById('tank');
 const game = document.getElementById('game');
+let listKeysPressed = new Map();
+listKeysPressed.set("z",false);
+listKeysPressed.set("q",false);
+listKeysPressed.set("s",false);
+listKeysPressed.set("d",false);
+
 
 
 function tick(){
+    console.log(listKeysPressed.get("z"));
     updateBulletsPosition();
     drawBullets();
     drawTanks();
@@ -16,30 +23,16 @@ function updateTankPosition() {
     tank.style.transform = `translate(-50%, -50%) rotate(${angle}deg)`;
 }
 
-// Gestion des touches pour déplacer le tank
-document.addEventListener('keydown', (e) => {
-    switch (e.key) {
-        case 'ArrowUp': // Avancer
-            position.y -= Math.cos(angle*Math.PI / 180)*tankSpeed;
-            position.x += Math.sin(angle*Math.PI / 180)*tankSpeed;
-            break;
-        case 'ArrowDown': // Reculer
-            position.y += Math.cos(angle*Math.PI / 180)*tankSpeed;
-            position.x -= Math.sin(angle*Math.PI / 180)*tankSpeed;
-            break;
-        case 'ArrowLeft': // Tourner à gauche
-            angle -= 5;
-            break;
-        case 'ArrowRight': // Tourner à droite
-            angle += 5;
-            break;
-    }
-    // Empêche le tank de sortir de l'écran
-    position.x = Math.max(25, Math.min(window.innerWidth - 25, position.x));
-    position.y = Math.max(25, Math.min(window.innerHeight - 25, position.y));
-    updateTankPosition();
-});
 
 // Gestion des touches pour tirer
 
-document.addEventListener("keydown", Tir)
+// Mise a jour des touches pressées
+document.addEventListener("keydown", (e) => {
+    listKeysPressed.set(e.key, true);
+});
+
+document.addEventListener("keyup", (e) => {
+    if (listKeysPressed.has(e.key)){
+        listKeysPressed.set(e.key, false);
+    }
+});
