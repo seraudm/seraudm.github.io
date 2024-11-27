@@ -64,8 +64,8 @@ function Tir(){
     const bullet = document.createElement("div");
     bullet.className = "bullet";
 
-    let xbullet= position.x + 60*Math.sin(angle*Math.PI/180);
-    let ybullet= position.y - 60*Math.cos(angle*Math.PI/180);;
+    let xbullet= position.x + 50*Math.sin(angle*Math.PI/180);
+    let ybullet= position.y - 50*Math.cos(angle*Math.PI/180);
 
 
     bullet.style.left = `${xbullet}px`;

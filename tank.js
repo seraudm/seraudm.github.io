@@ -10,18 +10,22 @@ class Tank{
         this.id = "tank" + numberTanks;
         numberTanks ++;
     }
+
+    shoot() {
+        addBullet(this.position.x + 50*Math.sin(this.angle*Math.PI/180), this.position.y - 50*Math.cos(this.angle*Math.PI/180), this.angle, this.color);
+    }
 }
 
 
 
-function drawTank(){
+function drawTanks(){
     for (tank of listTanks){
         if (!(tank.created)){
             tank.created = true;
             const tankHtml = document.createElement("div");
-            const turretHtml  = document.createElement("div");
+            const canonHtml  = document.createElement("div");
 
-            turretHtml.className = "turret";
+            canonHtml.className = "canon";
             tankHtml.className = "tank";
             tankHtml.id = tank.id;
 
@@ -32,7 +36,7 @@ function drawTank(){
             tankHtml.style.transform = `translate(-50%, -50%) rotate(${tank.angle}deg)`;
 
             game.appendChild(tankHtml);
-            tankHtml.appendChild(turretHtml);
+            tankHtml.appendChild(canonHtml);
         } else {
             const tankHtml = document.getElementById(tank.id);
 
@@ -45,4 +49,8 @@ function drawTank(){
         }
 
     }
+}
+
+function addTank(x, y, angle, color){
+    listTanks.push(new Tank(x, y, angle, color));
 }
