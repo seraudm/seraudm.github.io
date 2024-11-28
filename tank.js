@@ -2,16 +2,22 @@ let listTanks = [];
 let numberTanks = 0;
 const TankDefaultSpeed = 2;
 
+
 class Tank{
-    constructor (X,Y, angle, color, keybinds){
-        this.keybinds = keybinds
+    constructor (X,Y, angle, color, moveForward, moveBackward, turnLeft, turnRight, shoot){
+        this.keybinds = {moveForward: moveForward, moveBackward: moveBackward, turnLeft: turnLeft, turnRight: turnRight, shoot: shoot};
         this.created = false;
         this.angle = angle;
         this.position = {x: X, y:Y};
         this.color = color;
+
         this.id = "tank" + numberTanks;
-        this.speed = TankDefaultSpeed;
         numberTanks ++;
+
+        this.speed = TankDefaultSpeed;
+
+        this.lastTickShooting = -10;
+
     }
 
     shoot() {
@@ -79,8 +85,9 @@ function updateTanksPosition(){
 
 function shootTanks(){
     for (tank of listTanks){
-        if (listKeysPressed.get(tank.keybinds.shoot)){
-            tank.shoot;
+        if (listKeysPressed.get(tank.keybinds.shoot) && (currentTickNumber-tank.lastTickShooting)>=10){
+            tank.shoot();
+            tank.lastTickShooting = currentTickNumber;
         }
     }
 }

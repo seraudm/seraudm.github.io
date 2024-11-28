@@ -1,5 +1,5 @@
-//const tank = document.getElementById('tank');
 const game = document.getElementById('game');
+
 let listKeysPressed = new Map();
 listKeysPressed.set("z",false);
 listKeysPressed.set("q",false);
@@ -7,10 +7,11 @@ listKeysPressed.set("s",false);
 listKeysPressed.set("d",false);
 listKeysPressed.set(" ",false);
 
-
+let currentTickNumber=0;
 
 
 function tick(){
+    currentTickNumber++;
     updateTanksPosition();
     updateBulletsPosition();
     shootTanks();
