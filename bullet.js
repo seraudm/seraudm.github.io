@@ -17,7 +17,7 @@ class Bullet {
     remove(){
         const bulletHtml = document.getElementById(this.id);
         bulletHtml.remove();
-        listBullets.splice(listBullets.indexOf(this));
+        listBullets.splice(listBullets.indexOf(this), 1);
     }
 }
 
