@@ -3,7 +3,8 @@ let numberTanks = 0;
 const TankDefaultSpeed = 2;
 
 class Tank{
-    constructor (X,Y, angle, color){
+    constructor (X,Y, angle, color, keybinds){
+        this.keybinds = keybinds
         this.created = false;
         this.angle = angle;
         this.position = {x: X, y:Y};
@@ -55,4 +56,23 @@ function drawTanks(){
 
 function addTank(x, y, angle, color){
     listTanks.push(new Tank(x, y, angle, color));
+}
+
+function updateTanksPosition(){
+    for (tank of listTanks){
+        if (listKeysPressed.get(tank.keys.moveForward)){
+            tank.position.x += Math.sin(tank.angle*Math.PI/180) * tank.speed;
+            tank.position.y -= Math.cos(tank.angle*Math.PI/180) * tank.speed;
+        }
+        if (listKeysPressed.get(tank.keys.moveBackward)){
+            tank.position.x -= Math.sin(tank.angle*Math.PI/180) * tank.speed;
+            tank.position.y += Math.cos(tank.angle*Math.PI/180) * tank.speed;
+        }
+        if (listKeysPressed.get(tank.keys.turnLeft)){
+            tank.angle += 5;
+        }
+        if (listKeysPressed.get(tank.keys.turnRight)){
+            tank.angle -= 5;
+        }
+    }
 }
