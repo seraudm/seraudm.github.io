@@ -16,7 +16,7 @@ class Tank{
 
         this.speed = TankDefaultSpeed;
 
-        this.lastTickShooting = -10;
+        this.lastTickShooting = -30;
 
     }
 
@@ -85,7 +85,7 @@ function updateTanksPosition(){
 
 function shootTanks(){
     for (tank of listTanks){
-        if (listKeysPressed.get(tank.keybinds.shoot) && (currentTickNumber-tank.lastTickShooting)>=10){
+        if (listKeysPressed.get(tank.keybinds.shoot) && (currentTickNumber-tank.lastTickShooting)>=30){
             tank.shoot();
             tank.lastTickShooting = currentTickNumber;
         }
