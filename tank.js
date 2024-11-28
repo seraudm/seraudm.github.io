@@ -60,19 +60,27 @@ function addTank(x, y, angle, color){
 
 function updateTanksPosition(){
     for (tank of listTanks){
-        if (listKeysPressed.get(tank.keys.moveForward)){
+        if (listKeysPressed.get(tank.keybinds.moveForward)){
             tank.position.x += Math.sin(tank.angle*Math.PI/180) * tank.speed;
             tank.position.y -= Math.cos(tank.angle*Math.PI/180) * tank.speed;
         }
-        if (listKeysPressed.get(tank.keys.moveBackward)){
+        if (listKeysPressed.get(tank.keybinds.moveBackward)){
             tank.position.x -= Math.sin(tank.angle*Math.PI/180) * tank.speed;
             tank.position.y += Math.cos(tank.angle*Math.PI/180) * tank.speed;
         }
-        if (listKeysPressed.get(tank.keys.turnLeft)){
-            tank.angle += 5;
+        if (listKeysPressed.get(tank.keybinds.turnLeft)){
+            tank.angle -= 2;
         }
-        if (listKeysPressed.get(tank.keys.turnRight)){
-            tank.angle -= 5;
+        if (listKeysPressed.get(tank.keybinds.turnRight)){
+            tank.angle += 2;
+        }
+    }
+}
+
+function shootTanks(){
+    for (tank of listTanks){
+        if (listKeysPressed.get(tank.keybinds.shoot)){
+            tank.shoot;
         }
     }
 }

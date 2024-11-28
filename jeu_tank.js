@@ -13,6 +13,7 @@ listKeysPressed.set(" ",false);
 function tick(){
     updateTanksPosition();
     updateBulletsPosition();
+    shootTanks();
     drawBullets();
     drawTanks();
 }
