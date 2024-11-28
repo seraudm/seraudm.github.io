@@ -13,12 +13,23 @@ class Bullet {
         this.color = color;
         numberBullets ++;
     }
+
+    remove(){
+        const bulletHtml = document.getElementById(this.id);
+        bulletHtml.remove();
+        listBullets.splice(listBullets.indexOf(this));
+    }
 }
 
 function updateBulletsPosition(){
     for (bullet of listBullets){
         bullet.position.x += Math.sin(bullet.angle*Math.PI/180) * bullet.speed;
         bullet.position.y -= Math.cos(bullet.angle*Math.PI/180) * bullet.speed;
+
+        if(bullet.position.x<0 || bullet.position.x>mapSize.xMax || bullet.position.y<0 || bullet.position.y>mapSize.yMax){
+            bullet.remove();
+        }
+
     }
 }
 

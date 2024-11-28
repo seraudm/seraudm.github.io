@@ -1,4 +1,5 @@
 const game = document.getElementById('game');
+const mapSize={xMax: window.innerWidth, yMax: window.innerHeight};
 
 let listKeysPressed = new Map();
 listKeysPressed.set("z",false);
