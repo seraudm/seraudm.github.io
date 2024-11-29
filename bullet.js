@@ -58,6 +58,6 @@ function drawBullets(){
     }
 }
 
-function addBullet(x, y, angle, color){
-    listBullets.push(new Bullet(x, y, angle, color));
+function addBullet(bullet){
+    listBullets.push(bullet);
 }

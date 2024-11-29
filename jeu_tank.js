@@ -25,7 +25,9 @@ setInterval(tick, 20);
 
 // Mise a jour des touches pressées
 document.addEventListener("keydown", (e) => {
-    listKeysPressed.set(e.key, true);
+    if (listKeysPressed.has(e.key)){
+        listKeysPressed.set(e.key, true);
+    }
 });
 
 document.addEventListener("keyup", (e) => {

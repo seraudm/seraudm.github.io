@@ -21,7 +21,29 @@ class Tank{
     }
 
     shoot() {
-        addBullet(this.position.x + 50*Math.sin(this.angle*Math.PI/180), this.position.y - 50*Math.cos(this.angle*Math.PI/180), this.angle, this.color);
+        if (listKeysPressed.get(this.keybinds.shoot) && (currentTickNumber-this.lastTickShooting)>=30){
+            let bullet = new Bullet(this.position.x + 50*Math.sin(this.angle*Math.PI/180), this.position.y - 50*Math.cos(this.angle*Math.PI/180), this.angle, this.color)
+
+            addBullet(bullet);
+            this.lastTickShooting = currentTickNumber;
+        }
+    }
+
+    updatePosition(){
+        if (listKeysPressed.get(this.keybinds.moveForward)){
+            this.position.x += Math.sin(this.angle*Math.PI/180) * this.speed;
+            this.position.y -= Math.cos(this.angle*Math.PI/180) * this.speed;
+        }
+        if (listKeysPressed.get(this.keybinds.moveBackward)){
+            this.position.x -= Math.sin(this.angle*Math.PI/180) * this.speed;
+            this.position.y += Math.cos(this.angle*Math.PI/180) * this.speed;
+        }
+        if (listKeysPressed.get(this.keybinds.turnLeft)){
+            this.angle -= 2;
+        }
+        if (listKeysPressed.get(this.keybinds.turnRight)){
+            this.angle += 2;
+        }
     }
 }
 
@@ -60,34 +82,18 @@ function drawTanks(){
     }
 }
 
-function addTank(x, y, angle, color){
-    listTanks.push(new Tank(x, y, angle, color));
+function addTank(x, y, angle, color, moveForward, moveBackward, turnLeft, turnRight, shoot){
+    listTanks.push(new Tank(x, y, angle, color, moveForward, moveBackward, turnLeft, turnRight, shoot));
 }
 
 function updateTanksPosition(){
     for (tank of listTanks){
-        if (listKeysPressed.get(tank.keybinds.moveForward)){
-            tank.position.x += Math.sin(tank.angle*Math.PI/180) * tank.speed;
-            tank.position.y -= Math.cos(tank.angle*Math.PI/180) * tank.speed;
-        }
-        if (listKeysPressed.get(tank.keybinds.moveBackward)){
-            tank.position.x -= Math.sin(tank.angle*Math.PI/180) * tank.speed;
-            tank.position.y += Math.cos(tank.angle*Math.PI/180) * tank.speed;
-        }
-        if (listKeysPressed.get(tank.keybinds.turnLeft)){
-            tank.angle -= 2;
-        }
-        if (listKeysPressed.get(tank.keybinds.turnRight)){
-            tank.angle += 2;
-        }
+        tank.updatePosition();
     }
 }
 
 function shootTanks(){
     for (tank of listTanks){
-        if (listKeysPressed.get(tank.keybinds.shoot) && (currentTickNumber-tank.lastTickShooting)>=30){
-            tank.shoot();
-            tank.lastTickShooting = currentTickNumber;
-        }
+        tank.shoot();
     }
 }
