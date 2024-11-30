@@ -4,7 +4,7 @@ const TankDefaultSpeed = 2;
 
 
 class Tank{
-    constructor (X,Y, angle, color, moveForward, moveBackward, turnLeft, turnRight, shoot){
+    constructor (X,Y, angle, color, moveForward, moveBackward, turnLeft, turnRight, shoot, size=50){
         this.keybinds = {moveForward: moveForward, moveBackward: moveBackward, turnLeft: turnLeft, turnRight: turnRight, shoot: shoot};
         this.created = false;
         this.angle = angle;
@@ -17,12 +17,13 @@ class Tank{
         this.speed = TankDefaultSpeed;
 
         this.lastTickShooting = -30;
+        this.size=size;
 
     }
 
     shoot() {
         if (listKeysPressed.get(this.keybinds.shoot) && (currentTickNumber-this.lastTickShooting)>=30){
-            let bullet = new Bullet(this.position.x + 50*Math.sin(this.angle*Math.PI/180), this.position.y - 50*Math.cos(this.angle*Math.PI/180), this.angle, this.color)
+            let bullet = new Bullet(this.position.x + this.size*Math.sin(this.angle*Math.PI/180), this.position.y - this.size*Math.cos(this.angle*Math.PI/180), this.angle, this.color)
 
             addBullet(bullet);
             this.lastTickShooting = currentTickNumber;
@@ -63,6 +64,8 @@ function drawTanks(){
             tankHtml.style.left = `${tank.position.x}px`;
             tankHtml.style.top = `${tank.position.y}px`;
             tankHtml.style.backgroundColor = tank.color;
+            tankHtml.style.height = `${tank.size}px`;
+            tankHtml.style.width = `${tank.size}px`;
 
             tankHtml.style.transform = `translate(-50%, -50%) rotate(${tank.angle}deg)`;
 
