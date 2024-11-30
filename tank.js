@@ -4,14 +4,14 @@ const TankDefaultSpeed = 2;
 
 
 class Tank{
-    constructor (X,Y, angle, color, moveForward, moveBackward, turnLeft, turnRight, shoot, size=50){
+    constructor (X,Y, angle, color, moveForward, moveBackward, turnLeft, turnRight, shoot, size){
         this.keybinds = {moveForward: moveForward, moveBackward: moveBackward, turnLeft: turnLeft, turnRight: turnRight, shoot: shoot};
         this.created = false;
         this.angle = angle;
         this.position = {x: X, y:Y};
         this.color = color;
 
-        this.id = "tank" + numberTanks;
+        this.id = `tank${numberTanks}`;
         numberTanks ++;
 
         this.speed = TankDefaultSpeed;
@@ -85,8 +85,8 @@ function drawTanks(){
     }
 }
 
-function addTank(x, y, angle, color, moveForward, moveBackward, turnLeft, turnRight, shoot){
-    listTanks.push(new Tank(x, y, angle, color, moveForward, moveBackward, turnLeft, turnRight, shoot));
+function addTank(x, y, angle, color, moveForward, moveBackward, turnLeft, turnRight, shoot, size=50){
+    listTanks.push(new Tank(x, y, angle, color, moveForward, moveBackward, turnLeft, turnRight, shoot, size));
 }
 
 function updateTanksPosition(){

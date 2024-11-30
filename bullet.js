@@ -3,12 +3,12 @@ let numberBullets = 0;
 const BulletDefaultSpeed = 5;
 
 class Bullet {
-    constructor (X,Y, angle, color){
+    constructor (X,Y, angle, color, speed=BulletDefaultSpeed){
         this.created = false;
         this.angle = angle;
         this.position = {x: X, y:Y};
         this.nbBounces = 0;
-        this.speed = BulletDefaultSpeed;
+        this.speed = speed;
         this.id = "bullet" + numberBullets;
         this.color = color;
         numberBullets ++;
