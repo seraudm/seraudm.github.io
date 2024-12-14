@@ -1,7 +1,7 @@
 let listBullets = [];
 
 class Bullet {
-    static DEFAULT_SPEED = 200; // Unit: px/s
+    static DEFAULT_SPEED = 300; // Unit: px/s
     static numberBullets = 0;
 
     constructor (X,Y, angle, color, speed=Bullet.DEFAULT_SPEED){
