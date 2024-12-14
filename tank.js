@@ -5,6 +5,7 @@ class Tank{
     static DEFAULT_SPEED = 100; // Unit: px/s
     static DEFAULT_ANGLE_SPEED_DEG = 90; // Unit: deg/s
     static DEFAULT_ANGLE_SPEED = Tank.DEFAULT_ANGLE_SPEED_DEG*Math.PI/180; // Unit: rad/s
+    static DEFAULT_SHOOTING_COOLDOWN = 1; // Unit: s
     static numberTanks = 0;
 
     constructor (X,Y, angle, color, moveForward, moveBackward, turnLeft, turnRight, shoot, size=50){
@@ -19,7 +20,7 @@ class Tank{
 
         this.speed = Tank.DEFAULT_SPEED;
 
-        this.lastTickShooting = -30;
+        this.cooldown = 0;
         this.size=size;
 
         Tank.numberTanks ++;
@@ -27,10 +28,13 @@ class Tank{
     }
 
     shoot(dt) {
-        if (listKeysPressed.get(this.keybinds.shoot)){
-            let bullet = new Bullet(this.position.x + this.size*Math.sin(this.angle), this.position.y - this.size*Math.cos(this.angle), this.angle, this.color)
 
+        this.cooldown = Math.max(0, this.cooldown - dt);
+
+        if (listKeysPressed.get(this.keybinds.shoot) && this.cooldown == 0){
+            let bullet = new Bullet(this.position.x + this.size*Math.sin(this.angle), this.position.y - this.size*Math.cos(this.angle), this.angle, this.color)
             addBullet(bullet);
+            this.cooldown = Tank.DEFAULT_SHOOTING_COOLDOWN;
         }
     }
 

@@ -20,7 +20,7 @@ function tick(){
     let nextTime = Date.now();
     let dt = (nextTime - currentTime)/1000; //Delta between two ticks in s
     currentTime = nextTime;
-
+    
     updateTanksPosition(dt);
     updateBulletsPosition(dt);
     shootTanks(dt);

@@ -1,8 +1,8 @@
 let listBullets = [];
-let numberBullets = 0;
 
 class Bullet {
     static DEFAULT_SPEED = 200; // Unit: px/s
+    static numberBullets = 0;
 
     constructor (X,Y, angle, color, speed=Bullet.DEFAULT_SPEED){
         this.created = false;
@@ -10,9 +10,9 @@ class Bullet {
         this.position = {x: X, y:Y};
         this.nbBounces = 0;
         this.speed = speed;
-        this.id = "bullet" + numberBullets;
+        this.id = `bullet${Bullet.numberBullets}`;
         this.color = color;
-        numberBullets ++;
+        Bullet.numberBullets ++;
     }
 
     remove(){
