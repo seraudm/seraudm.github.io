@@ -2,7 +2,9 @@ let listTanks = [];
 
 
 class Tank{
-    static TANK_DEFAULT_SPEED = 2;
+    static DEFAULT_SPEED = 100; // Unit: px/s
+    static DEFAULT_ANGLE_SPEED_DEG = 90; // Unit: deg/s
+    static DEFAULT_ANGLE_SPEED = Tank.DEFAULT_ANGLE_SPEED_DEG*Math.PI/180; // Unit: rad/s
     static numberTanks = 0;
 
     constructor (X,Y, angle, color, moveForward, moveBackward, turnLeft, turnRight, shoot, size=50){
@@ -11,10 +13,11 @@ class Tank{
         this.angle = angle;
         this.position = {x: X, y:Y};
         this.color = color;
+        this.angleSpeed = Tank.DEFAULT_ANGLE_SPEED;
 
         this.id = `tank${Tank.numberTanks}`;
 
-        this.speed = Tank.TANK_DEFAULT_SPEED;
+        this.speed = Tank.DEFAULT_SPEED;
 
         this.lastTickShooting = -30;
         this.size=size;
@@ -23,28 +26,28 @@ class Tank{
 
     }
 
-    shoot() {
+    shoot(dt) {
         if (listKeysPressed.get(this.keybinds.shoot)){
-            let bullet = new Bullet(this.position.x + this.size*Math.sin(this.angle*Math.PI/180), this.position.y - this.size*Math.cos(this.angle*Math.PI/180), this.angle, this.color)
+            let bullet = new Bullet(this.position.x + this.size*Math.sin(this.angle), this.position.y - this.size*Math.cos(this.angle), this.angle, this.color)
 
             addBullet(bullet);
         }
     }
 
-    updatePosition(){
+    updatePosition(dt){
         if (listKeysPressed.get(this.keybinds.moveForward)){
-            this.position.x += Math.sin(this.angle*Math.PI/180) * this.speed;
-            this.position.y -= Math.cos(this.angle*Math.PI/180) * this.speed;
+            this.position.x += Math.sin(this.angle) * this.speed *dt;
+            this.position.y -= Math.cos(this.angle) * this.speed *dt;
         }
         if (listKeysPressed.get(this.keybinds.moveBackward)){
-            this.position.x -= Math.sin(this.angle*Math.PI/180) * this.speed;
-            this.position.y += Math.cos(this.angle*Math.PI/180) * this.speed;
+            this.position.x -= Math.sin(this.angle) * this.speed *dt;
+            this.position.y += Math.cos(this.angle) * this.speed *dt;
         }
         if (listKeysPressed.get(this.keybinds.turnLeft)){
-            this.angle -= 2;
+            this.angle -= this.angleSpeed *dt;
         }
         if (listKeysPressed.get(this.keybinds.turnRight)){
-            this.angle += 2;
+            this.angle += this.angleSpeed *dt;
         }
     }
 
@@ -64,7 +67,7 @@ class Tank{
             tankHtml.style.height = `${this.size}px`;
             tankHtml.style.width = `${this.size}px`;
 
-            tankHtml.style.transform = `translate(-50%, -50%) rotate(${this.angle}deg)`;
+            tankHtml.style.transform = `translate(-50%, -50%) rotate(${this.angle}rad)`;
 
             game.appendChild(tankHtml);
             tankHtml.appendChild(canonHtml);
@@ -74,7 +77,7 @@ class Tank{
             tankHtml.style.left = `${this.position.x}px`;
             tankHtml.style.top = `${this.position.y}px`;
 
-            tankHtml.style.transform = `translate(-50%, -50%) rotate(${this.angle}deg)`;
+            tankHtml.style.transform = `translate(-50%, -50%) rotate(${this.angle}rad)`;
 
             
         }
@@ -97,12 +100,12 @@ function addTank(tank){
 
 function updateTanksPosition(dt){
     for (tank of listTanks){
-        tank.updatePosition();
+        tank.updatePosition(dt);
     }
 }
 
 function shootTanks(dt){
     for (tank of listTanks){
-        tank.shoot();
+        tank.shoot(dt);
     }
 }

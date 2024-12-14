@@ -18,7 +18,7 @@ main();
 
 function tick(){
     let nextTime = Date.now();
-    let dt = (nextTime - currentTime) * 100; //Delta between two ticks in s
+    let dt = (nextTime - currentTime)/1000; //Delta between two ticks in s
     currentTime = nextTime;
 
     updateTanksPosition(dt);
