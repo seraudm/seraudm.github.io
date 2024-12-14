@@ -8,14 +8,22 @@ listKeysPressed.set("s",false);
 listKeysPressed.set("d",false);
 listKeysPressed.set(" ",false);
 
-let currentTickNumber=0;
+let currentTime= Date.now();
 
+function main(){
+    addTank(new Tank(100,100,0,"rgb(255,0,0)","z","s","q","d"," "))
+}
+
+main();
 
 function tick(){
-    currentTickNumber++;
-    updateTanksPosition();
-    updateBulletsPosition();
-    shootTanks();
+    let nextTime = Date.now();
+    let dt = (nextTime - currentTime) * 100; //Delta between two ticks in s
+    currentTime = nextTime;
+
+    updateTanksPosition(dt);
+    updateBulletsPosition(dt);
+    shootTanks(dt);
     drawBullets();
     drawTanks();
 }
@@ -35,3 +43,4 @@ document.addEventListener("keyup", (e) => {
         listKeysPressed.set(e.key, false);
     }
 });
+

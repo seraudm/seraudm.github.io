@@ -1,32 +1,33 @@
 let listTanks = [];
-let numberTanks = 0;
-const TankDefaultSpeed = 2;
 
 
 class Tank{
-    constructor (X,Y, angle, color, moveForward, moveBackward, turnLeft, turnRight, shoot, size){
+    static TANK_DEFAULT_SPEED = 2;
+    static numberTanks = 0;
+
+    constructor (X,Y, angle, color, moveForward, moveBackward, turnLeft, turnRight, shoot, size=50){
         this.keybinds = {moveForward: moveForward, moveBackward: moveBackward, turnLeft: turnLeft, turnRight: turnRight, shoot: shoot};
         this.created = false;
         this.angle = angle;
         this.position = {x: X, y:Y};
         this.color = color;
 
-        this.id = `tank${numberTanks}`;
-        numberTanks ++;
+        this.id = `tank${Tank.numberTanks}`;
 
-        this.speed = TankDefaultSpeed;
+        this.speed = Tank.TANK_DEFAULT_SPEED;
 
         this.lastTickShooting = -30;
         this.size=size;
 
+        Tank.numberTanks ++;
+
     }
 
     shoot() {
-        if (listKeysPressed.get(this.keybinds.shoot) && (currentTickNumber-this.lastTickShooting)>=30){
+        if (listKeysPressed.get(this.keybinds.shoot)){
             let bullet = new Bullet(this.position.x + this.size*Math.sin(this.angle*Math.PI/180), this.position.y - this.size*Math.cos(this.angle*Math.PI/180), this.angle, this.color)
 
             addBullet(bullet);
-            this.lastTickShooting = currentTickNumber;
         }
     }
 
@@ -46,56 +47,61 @@ class Tank{
             this.angle += 2;
         }
     }
+
+    draw(){
+        if (!(this.created)){
+            this.created = true;
+            const tankHtml = document.createElement("div");
+            const canonHtml  = document.createElement("div");
+
+            canonHtml.className = "canon";
+            tankHtml.className = "tank";
+            tankHtml.id = this.id;
+
+            tankHtml.style.left = `${this.position.x}px`;
+            tankHtml.style.top = `${this.position.y}px`;
+            tankHtml.style.backgroundColor = this.color;
+            tankHtml.style.height = `${this.size}px`;
+            tankHtml.style.width = `${this.size}px`;
+
+            tankHtml.style.transform = `translate(-50%, -50%) rotate(${this.angle}deg)`;
+
+            game.appendChild(tankHtml);
+            tankHtml.appendChild(canonHtml);
+        } else {
+            const tankHtml = document.getElementById(this.id);
+
+            tankHtml.style.left = `${this.position.x}px`;
+            tankHtml.style.top = `${this.position.y}px`;
+
+            tankHtml.style.transform = `translate(-50%, -50%) rotate(${this.angle}deg)`;
+
+            
+        }
+    }
+
 }
 
 
 
 function drawTanks(){
     for (tank of listTanks){
-        if (!(tank.created)){
-            tank.created = true;
-            const tankHtml = document.createElement("div");
-            const canonHtml  = document.createElement("div");
-
-            canonHtml.className = "canon";
-            tankHtml.className = "tank";
-            tankHtml.id = tank.id;
-
-            tankHtml.style.left = `${tank.position.x}px`;
-            tankHtml.style.top = `${tank.position.y}px`;
-            tankHtml.style.backgroundColor = tank.color;
-            tankHtml.style.height = `${tank.size}px`;
-            tankHtml.style.width = `${tank.size}px`;
-
-            tankHtml.style.transform = `translate(-50%, -50%) rotate(${tank.angle}deg)`;
-
-            game.appendChild(tankHtml);
-            tankHtml.appendChild(canonHtml);
-        } else {
-            const tankHtml = document.getElementById(tank.id);
-
-            tankHtml.style.left = `${tank.position.x}px`;
-            tankHtml.style.top = `${tank.position.y}px`;
-
-            tankHtml.style.transform = `translate(-50%, -50%) rotate(${tank.angle}deg)`;
-
-            
-        }
-
+        tank.draw();
     }
 }
 
-function addTank(x, y, angle, color, moveForward, moveBackward, turnLeft, turnRight, shoot, size=50){
-    listTanks.push(new Tank(x, y, angle, color, moveForward, moveBackward, turnLeft, turnRight, shoot, size));
+
+function addTank(tank){
+    listTanks.push(tank);
 }
 
-function updateTanksPosition(){
+function updateTanksPosition(dt){
     for (tank of listTanks){
         tank.updatePosition();
     }
 }
 
-function shootTanks(){
+function shootTanks(dt){
     for (tank of listTanks){
         tank.shoot();
     }

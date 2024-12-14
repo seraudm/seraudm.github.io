@@ -21,7 +21,7 @@ class Bullet {
     }
 }
 
-function updateBulletsPosition(){
+function updateBulletsPosition(dt){
     for (bullet of listBullets){
         bullet.position.x += Math.sin(bullet.angle*Math.PI/180) * bullet.speed;
         bullet.position.y -= Math.cos(bullet.angle*Math.PI/180) * bullet.speed;
