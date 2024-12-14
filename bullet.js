@@ -1,9 +1,10 @@
 let listBullets = [];
 let numberBullets = 0;
-const BulletDefaultSpeed = 5;
 
 class Bullet {
-    constructor (X,Y, angle, color, speed=BulletDefaultSpeed){
+    static DEFAULT_SPEED = 200; // Unit: px/s
+
+    constructor (X,Y, angle, color, speed=Bullet.DEFAULT_SPEED){
         this.created = false;
         this.angle = angle;
         this.position = {x: X, y:Y};
@@ -19,42 +20,49 @@ class Bullet {
         bulletHtml.remove();
         listBullets.splice(listBullets.indexOf(this), 1);
     }
+
+    updatePosition(dt){
+        this.position.x += Math.sin(this.angle) * this.speed *dt;
+        this.position.y -= Math.cos(this.angle) * this.speed *dt;
+
+        if(this.position.x<0 || this.position.x>mapSize.xMax || this.position.y<0 || this.position.y>mapSize.yMax){
+            this.remove();
+        }
+    }
+
+    draw(){
+        if (!(this.created)){
+            this.created = true;
+            const bulletHtml = document.createElement("div");
+
+            bulletHtml.className = "bullet";
+            bulletHtml.id = this.id;
+
+            bulletHtml.style.left = `${this.position.x}px`;
+            bulletHtml.style.top = `${this.position.y}px`;
+            bulletHtml.style.backgroundColor = this.color;
+
+            game.appendChild(bulletHtml);
+        } else {
+            const bulletHtml = document.getElementById(this.id);
+
+            bulletHtml.style.left = `${this.position.x}px`;
+            bulletHtml.style.top = `${this.position.y}px`;
+            
+        }
+    }
+
 }
 
 function updateBulletsPosition(dt){
     for (bullet of listBullets){
-        bullet.position.x += Math.sin(bullet.angle*Math.PI/180) * bullet.speed;
-        bullet.position.y -= Math.cos(bullet.angle*Math.PI/180) * bullet.speed;
-
-        if(bullet.position.x<0 || bullet.position.x>mapSize.xMax || bullet.position.y<0 || bullet.position.y>mapSize.yMax){
-            bullet.remove();
-        }
-
+        bullet.updatePosition(dt);
     }
 }
 
 function drawBullets(){
     for (bullet of listBullets){
-        if (!(bullet.created)){
-            bullet.created = true;
-            const bulletHtml = document.createElement("div");
-
-            bulletHtml.className = "bullet";
-            bulletHtml.id = bullet.id;
-
-            bulletHtml.style.left = `${bullet.position.x}px`;
-            bulletHtml.style.top = `${bullet.position.y}px`;
-            bulletHtml.style.backgroundColor = bullet.color;
-
-            game.appendChild(bulletHtml);
-        } else {
-            const bulletHtml = document.getElementById(bullet.id);
-
-            bulletHtml.style.left = `${bullet.position.x}px`;
-            bulletHtml.style.top = `${bullet.position.y}px`;
-            
-        }
-
+        bullet.draw();
     }
 }
 
