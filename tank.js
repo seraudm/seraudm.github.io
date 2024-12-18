@@ -55,7 +55,6 @@ class Tank{
         if (listKeysPressed.get(this.keybinds.turnRight)){
             this.angle += this.angleSpeed *dt;
         }
-
         if (isValid(nextPosition)){
             this.position=nextPosition;
         }
