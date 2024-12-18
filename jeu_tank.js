@@ -52,9 +52,7 @@ function collisionsBulletsTanks(){
     }
 }
 
-function main(){
-    addTank(new Tank(0,0,0,"rgb(255,0,0)","z","s","q","d"," "));
-    addTank(new Tank(500,500,0,"rgb(0,255,0)","ArrowUp","ArrowDown","ArrowLeft","ArrowRight","0"));
+function drawMap(){
     for (let i = 0; i < MAP_SIZE; i++) {
         for (let j = 0; j < MAP_SIZE; j++) {
             const cell = document.createElement("div");
@@ -64,7 +62,13 @@ function main(){
             }
             MAP_HTML.appendChild(cell);
           }
-    };
+    }
+}
+
+function main(){
+    addTank(new Tank(0,0,0,"rgb(255,0,0)","z","s","q","d"," "));
+    addTank(new Tank(500,500,0,"rgb(0,255,0)","ArrowUp","ArrowDown","ArrowLeft","ArrowRight","0"));
+    drawMap();
 }
 
 main();
