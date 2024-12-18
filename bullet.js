@@ -1,7 +1,7 @@
 let listBullets = [];
 
 class Bullet {
-    static DEFAULT_SPEED = 300; // Unit: px/s
+    static DEFAULT_SPEED = 400; // Unit: px/s
     static DEFAULT_SIZE = 10; // Unit: px
     static numberBullets = 0;
 
