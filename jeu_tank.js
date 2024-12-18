@@ -1,5 +1,31 @@
 const GAME = document.getElementById('game');
-const MAP_SIZE={xyMax: window.innerHeight, xyMin:0};
+const MAP_HTML = document.getElementById('map');
+const MAP_COORDINATES = MAP_HTML.getBoundingClientRect();
+const MAP_SIZE_PX={xMax: MAP_COORDINATES.right, xMin:MAP_COORDINATES.left, yMin:MAP_COORDINATES.top, yMax:MAP_COORDINATES.bottom};
+const MAP = [[1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
+                [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+                [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+                [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+                [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+                [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+                [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+                [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+                [1,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+                [1,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+                [1,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+                [1,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+                [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+                [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+                [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+                [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+                [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+                [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+                [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+                [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]];
+
+const MAP_SIZE = MAP.length;
+
+
 
 let listKeysPressed = new Map();
 listKeysPressed.set("z",false);
@@ -29,6 +55,16 @@ function collisionsBulletsTanks(){
 function main(){
     addTank(new Tank(0,0,0,"rgb(255,0,0)","z","s","q","d"," "));
     addTank(new Tank(500,500,0,"rgb(0,255,0)","ArrowUp","ArrowDown","ArrowLeft","ArrowRight","0"));
+    for (let i = 0; i < MAP_SIZE; i++) {
+        for (let j = 0; j < MAP_SIZE; j++) {
+            const cell = document.createElement("div");
+            cell.classList.add("cell");
+            if (MAP[i][j]===1){
+                cell.style.backgroundColor = "#333";
+            }
+            MAP_HTML.appendChild(cell);
+          }
+    };
 }
 
 main();

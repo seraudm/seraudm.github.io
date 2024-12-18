@@ -58,7 +58,6 @@ class Tank{
 
     draw(){
         let positionPx = convertPositionGameUnitToPx(this.position);
-        console.log(positionPx);
         let sizePx= convertGameUnitToPx(this.size);
         if (!(this.created)){
             this.created = true;

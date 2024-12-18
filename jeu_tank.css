@@ -5,13 +5,30 @@ body {
     font-family: Arial, sans-serif;
     background-color: #7ec850;
 }
+
 #game {
-    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     width: 100vw;
     height: 100vh;
     background-color: #ffffff;
-    overflow: hidden;
 }
+
+#map {
+    display: grid;
+    grid-template-columns: repeat(20, 1fr); 
+    width: 100vh;
+    height: 100vh;
+    background-color: #333;
+  }
+
+.cell {
+    background-color: #fff;
+    border: 0px solid #ccc;
+    transition: background-color 0.3s ease;
+}
+
 .tank {
     position: absolute;
     border: 2px solid #000;

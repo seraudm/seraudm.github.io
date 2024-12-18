@@ -27,7 +27,7 @@ class Bullet {
         this.position.x += Math.sin(this.angle) * this.speed *dt;
         this.position.y -= Math.cos(this.angle) * this.speed *dt;
 
-        if(this.position.x<0 || this.position.x>MAP_SIZE.xMax || this.position.y<0 || this.position.y>MAP_SIZE.yMax){
+        if(this.position.x<0 || this.position.x>1000 || this.position.y<0 || this.position.y>1000){
             this.remove();
         }
     }
