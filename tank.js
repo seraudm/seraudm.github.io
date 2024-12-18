@@ -6,9 +6,10 @@ class Tank{
     static DEFAULT_ANGLE_SPEED_DEG = 90; // Unit: deg/s
     static DEFAULT_ANGLE_SPEED = Tank.DEFAULT_ANGLE_SPEED_DEG*Math.PI/180; // Unit: rad/s
     static DEFAULT_SHOOTING_COOLDOWN = 1; // Unit: s
+    static DEFAULT_SIZE = 50;
     static numberTanks = 0;
 
-    constructor (X,Y, angle, color, moveForward, moveBackward, turnLeft, turnRight, shoot, size=50){
+    constructor (X,Y, angle, color, moveForward, moveBackward, turnLeft, turnRight, shoot, size=Tank.DEFAULT_SIZE){
         this.keybinds = {moveForward: moveForward, moveBackward: moveBackward, turnLeft: turnLeft, turnRight: turnRight, shoot: shoot};
         this.created = false;
         this.angle = angle;
@@ -73,7 +74,7 @@ class Tank{
 
             tankHtml.style.transform = `translate(-50%, -50%) rotate(${this.angle}rad)`;
 
-            game.appendChild(tankHtml);
+            GAME.appendChild(tankHtml);
             tankHtml.appendChild(canonHtml);
         } else {
             const tankHtml = document.getElementById(this.id);
@@ -85,6 +86,12 @@ class Tank{
 
             
         }
+    }
+
+    remove(){
+        const tankHtml = document.getElementById(this.id);
+        tankHtml.remove();
+        listTanks.splice(listTanks.indexOf(this), 1);
     }
 
 }
