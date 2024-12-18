@@ -40,19 +40,24 @@ class Tank{
     }
 
     updatePosition(dt){
+        let nextPosition = {x: this.position.x, y:this.position.y};
         if (listKeysPressed.get(this.keybinds.moveForward)){
-            this.position.x += Math.sin(this.angle) * this.speed *dt;
-            this.position.y -= Math.cos(this.angle) * this.speed *dt;
+            nextPosition.x += Math.sin(this.angle) * this.speed *dt;
+            nextPosition.y -= Math.cos(this.angle) * this.speed *dt;
         }
         if (listKeysPressed.get(this.keybinds.moveBackward)){
-            this.position.x -= Math.sin(this.angle) * this.speed *dt;
-            this.position.y += Math.cos(this.angle) * this.speed *dt;
+            nextPosition.x -= Math.sin(this.angle) * this.speed *dt;
+            nextPosition.y += Math.cos(this.angle) * this.speed *dt;
         }
         if (listKeysPressed.get(this.keybinds.turnLeft)){
             this.angle -= this.angleSpeed *dt;
         }
         if (listKeysPressed.get(this.keybinds.turnRight)){
             this.angle += this.angleSpeed *dt;
+        }
+
+        if (isValid(nextPosition)){
+            this.position=nextPosition;
         }
     }
 

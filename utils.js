@@ -15,16 +15,21 @@ function convertPositionGameUnitToPx(positionGameUnit){
 
 
 
-function transformation_petite_grande(position) {
-    let abs = position.x * 1000 / 20;
-    let ord = position.y * 1000 / 20;
+function convertPositionGameUnitToWall(position) {
+    let abs = position.x * 1000 / MAP_SIZE;
+    let ord = position.y * 1000 / MAP_SIZE;
     let new_position = { x: abs, y: ord };
     return new_position;
 }
 
-function transformation_grande_petite(position) {
+function convertPositionWallToGameUnit(position) {
     let abs = position.x * MAP_SIZE /1000;
     let ord = position.y * MAP_SIZE / 1000;
     let new_position = { x: abs, y: ord };
     return new_position;
+}
+
+function isValid(position){
+    positionWall = convertPositionGameUnitToWall(position);
+    return !(MAP[positionWall.x][positionWall.y]);
 }
