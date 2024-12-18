@@ -33,6 +33,8 @@ class Bullet {
     }
 
     draw(){
+        let positionPx = convertPositionGameUnitToPx(this.position);
+        let sizePx = convertGameUnitToPx(this.size);    
         if (!(this.created)){
             this.created = true;
             const bulletHtml = document.createElement("div");
@@ -40,18 +42,18 @@ class Bullet {
             bulletHtml.className = "bullet";
             bulletHtml.id = this.id;
 
-            bulletHtml.style.left = `${this.position.x}px`;
-            bulletHtml.style.top = `${this.position.y}px`;
+            bulletHtml.style.left = `${positionPx.x}px`;
+            bulletHtml.style.top = `${positionPx.y}px`;
             bulletHtml.style.backgroundColor = this.color;
-            bulletHtml.style.height = `${this.size}px`;
-            bulletHtml.style.width = `${this.size}px`;
+            bulletHtml.style.height = `${sizePx}px`;
+            bulletHtml.style.width = `${sizePx}px`;
 
             GAME.appendChild(bulletHtml);
         } else {
             const bulletHtml = document.getElementById(this.id);
 
-            bulletHtml.style.left = `${this.position.x}px`;
-            bulletHtml.style.top = `${this.position.y}px`;
+            bulletHtml.style.left = `${positionPx.x}px`;
+            bulletHtml.style.top = `${positionPx.y}px`;
             
         }
     }

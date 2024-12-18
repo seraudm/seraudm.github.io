@@ -1,5 +1,5 @@
 const GAME = document.getElementById('game');
-const MAP_SIZE={xMax: window.innerWidth, yMax: window.innerHeight};
+const MAP_SIZE={xyMax: window.innerHeight, xyMin:0};
 
 let listKeysPressed = new Map();
 listKeysPressed.set("z",false);
@@ -27,8 +27,8 @@ function collisionsBulletsTanks(){
 }
 
 function main(){
-    addTank(new Tank(100,100,0,"rgb(255,0,0)","z","s","q","d"," "));
-    addTank(new Tank(400,400,0,"rgb(0,255,0)","ArrowUp","ArrowDown","ArrowLeft","ArrowRight","0"));
+    addTank(new Tank(0,0,0,"rgb(255,0,0)","z","s","q","d"," "));
+    addTank(new Tank(500,500,0,"rgb(0,255,0)","ArrowUp","ArrowDown","ArrowLeft","ArrowRight","0"));
 }
 
 main();

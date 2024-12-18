@@ -2,11 +2,11 @@ let listTanks = [];
 
 
 class Tank{
-    static DEFAULT_SPEED = 100; // Unit: px/s
+    static DEFAULT_SPEED = 100; // Unit: GameUnit/s
     static DEFAULT_ANGLE_SPEED_DEG = 90; // Unit: deg/s
     static DEFAULT_ANGLE_SPEED = Tank.DEFAULT_ANGLE_SPEED_DEG*Math.PI/180; // Unit: rad/s
     static DEFAULT_SHOOTING_COOLDOWN = 1; // Unit: s
-    static DEFAULT_SIZE = 50;
+    static DEFAULT_SIZE = 60; //Unit: GameUnit
     static numberTanks = 0;
 
     constructor (X,Y, angle, color, moveForward, moveBackward, turnLeft, turnRight, shoot, size=Tank.DEFAULT_SIZE){
@@ -57,6 +57,9 @@ class Tank{
     }
 
     draw(){
+        let positionPx = convertPositionGameUnitToPx(this.position);
+        console.log(positionPx);
+        let sizePx= convertGameUnitToPx(this.size);
         if (!(this.created)){
             this.created = true;
             const tankHtml = document.createElement("div");
@@ -66,11 +69,11 @@ class Tank{
             tankHtml.className = "tank";
             tankHtml.id = this.id;
 
-            tankHtml.style.left = `${this.position.x}px`;
-            tankHtml.style.top = `${this.position.y}px`;
+            tankHtml.style.left = `${positionPx.x}px`;
+            tankHtml.style.top = `${positionPx.y}px`;
             tankHtml.style.backgroundColor = this.color;
-            tankHtml.style.height = `${this.size}px`;
-            tankHtml.style.width = `${this.size}px`;
+            tankHtml.style.height = `${sizePx}px`;
+            tankHtml.style.width = `${sizePx}px`;
 
             tankHtml.style.transform = `translate(-50%, -50%) rotate(${this.angle}rad)`;
 
@@ -79,8 +82,8 @@ class Tank{
         } else {
             const tankHtml = document.getElementById(this.id);
 
-            tankHtml.style.left = `${this.position.x}px`;
-            tankHtml.style.top = `${this.position.y}px`;
+            tankHtml.style.left = `${positionPx.x}px`;
+            tankHtml.style.top = `${positionPx.y}px`;
 
             tankHtml.style.transform = `translate(-50%, -50%) rotate(${this.angle}rad)`;
 
