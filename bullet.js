@@ -24,10 +24,13 @@ class Bullet {
     }
 
     updatePosition(dt){
-        this.position.x += Math.sin(this.angle) * this.speed *dt;
-        this.position.y -= Math.cos(this.angle) * this.speed *dt;
+        let nextPosition = this.position;
+        nextPosition.x += Math.sin(this.angle) * this.speed *dt;
+        nextPosition.y -= Math.cos(this.angle) * this.speed *dt;
 
-        if(this.position.x<0 || this.position.x>1000 || this.position.y<0 || this.position.y>1000){
+        if(isValid(nextPosition)){
+            this.position = nextPosition;
+        } else {
             this.remove();
         }
     }

@@ -5,7 +5,7 @@ class Tank{
     static DEFAULT_SPEED = 150; // Unit: GameUnit/s
     static DEFAULT_ANGLE_SPEED_DEG = 90; // Unit: deg/s
     static DEFAULT_ANGLE_SPEED = Tank.DEFAULT_ANGLE_SPEED_DEG*Math.PI/180; // Unit: rad/s
-    static DEFAULT_SHOOTING_COOLDOWN = 1; // Unit: s
+    static DEFAULT_SHOOTING_COOLDOWN = 0.75; // Unit: s
     static DEFAULT_SIZE = 60; //Unit: GameUnit
     static numberTanks = 0;
 
