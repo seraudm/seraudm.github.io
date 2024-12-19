@@ -67,7 +67,6 @@ class Tank{
             this.created = true;
             const tankHtml = document.createElement("div");
             const canonHtml  = document.createElement("div");
-
             canonHtml.className = "canon";
             tankHtml.className = "tank";
             tankHtml.id = this.id;
@@ -75,11 +74,10 @@ class Tank{
             tankHtml.style.left = `${positionPx.x}px`;
             tankHtml.style.top = `${positionPx.y}px`;
             tankHtml.style.backgroundColor = this.color;
-            tankHtml.style.height = `${sizePx}px`;
-            tankHtml.style.width = `${sizePx}px`;
 
             tankHtml.style.transform = `translate(-50%, -50%) rotate(${this.angle}rad)`;
-
+            tankHtml.style.height = `${sizePx}px`;
+            tankHtml.style.width = `${sizePx}px`;
             GAME.appendChild(tankHtml);
             tankHtml.appendChild(canonHtml);
         } else {
@@ -89,8 +87,8 @@ class Tank{
             tankHtml.style.top = `${positionPx.y}px`;
 
             tankHtml.style.transform = `translate(-50%, -50%) rotate(${this.angle}rad)`;
-
-            
+            tankHtml.style.height = `${sizePx}px`;
+            tankHtml.style.width = `${sizePx}px`;
         }
     }
 

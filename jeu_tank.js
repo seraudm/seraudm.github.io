@@ -1,27 +1,28 @@
 const GAME = document.getElementById('game');
 const MAP_HTML = document.getElementById('map');
-const MAP_COORDINATES = MAP_HTML.getBoundingClientRect();
-const MAP_SIZE_PX={xMax: MAP_COORDINATES.right, xMin:MAP_COORDINATES.left, yMin:MAP_COORDINATES.top, yMax:MAP_COORDINATES.bottom};
-const MAP = [[1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
-                [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-                [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-                [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-                [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-                [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-                [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-                [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-                [1,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,1],
-                [1,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,1],
-                [1,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,1],
-                [1,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,1],
-                [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-                [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-                [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-                [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-                [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-                [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-                [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-                [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]];
+let map_coordinates;
+let map_size_px;
+const MAP = [[1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
+                [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1],
+                [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1],
+                [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1],
+                [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1],
+                [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1],
+                [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1],
+                [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1],
+                [1,0,0,0,0,1,1,0,0,0,0,0,0,1,0,0,0,0,0,1,1],
+                [1,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,1,1],
+                [1,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,1,1],
+                [1,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,1,1],
+                [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1],
+                [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1],
+                [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1],
+                [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1],
+                [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1],
+                [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1],
+                [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1],
+                [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1],
+                [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]];
 
 const MAP_SIZE = MAP.length;
 
@@ -53,6 +54,18 @@ function collisionsBulletsTanks(){
 }
 
 function drawMap(){
+    
+    MAP_HTML.style.gridTemplateColumns = `repeat(${MAP_SIZE}, 1fr)`;
+
+    if (window.innerHeight<window.innerWidth){
+        MAP_HTML.style.width = "100vh";
+        MAP_HTML.style.height = "100vh";
+
+    } else {
+        MAP_HTML.style.width = "100vw";
+        MAP_HTML.style.height = "100vw";
+    }
+
     for (let i = 0; i < MAP_SIZE; i++) {
         for (let j = 0; j < MAP_SIZE; j++) {
             const cell = document.createElement("div");
@@ -63,12 +76,14 @@ function drawMap(){
             MAP_HTML.appendChild(cell);
           }
     }
+    map_coordinates = MAP_HTML.getBoundingClientRect();
+    map_size_px={xMax: map_coordinates.right, xMin:map_coordinates.left, yMin:map_coordinates.top, yMax:map_coordinates.bottom};
 }
 
 function main(){
+    drawMap();
     addTank(new Tank(100,100,0,"rgb(255,0,0)","z","s","q","d"," "));
     addTank(new Tank(200,750,0,"rgb(0,255,0)","ArrowUp","ArrowDown","ArrowLeft","ArrowRight","0"));
-    drawMap();
 }
 
 main();
@@ -102,3 +117,17 @@ document.addEventListener("keyup", (e) => {
     }
 });
 
+function updateMapSize(){
+    if (window.innerHeight<window.innerWidth){
+        MAP_HTML.style.width = "100vh";
+        MAP_HTML.style.height = "100vh";
+
+    } else {
+        MAP_HTML.style.width = "100vw";
+        MAP_HTML.style.height = "100vw";
+    }
+    map_coordinates = MAP_HTML.getBoundingClientRect();
+    map_size_px={xMax: map_coordinates.right, xMin:map_coordinates.left, yMin:map_coordinates.top, yMax:map_coordinates.bottom};
+}
+
+window.addEventListener("resize", updateMapSize)

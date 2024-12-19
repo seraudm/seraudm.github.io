@@ -4,12 +4,12 @@ function distance(p1, p2){
 }
 
 function convertGameUnitToPx(coordinate){
-    return (MAP_SIZE_PX.xMax - MAP_SIZE_PX.xMin) * coordinate / 1000;
+    return (map_size_px.xMax - map_size_px.xMin) * coordinate / 1000;
 }
 
 // Decoupage de la zone de jeu en une grille de coordonnees de 1000 cases
 function convertPositionGameUnitToPx(positionGameUnit){
-    positionPx = {x: MAP_SIZE_PX.xMin + convertGameUnitToPx(positionGameUnit.x), y: MAP_SIZE_PX.yMin + convertGameUnitToPx(positionGameUnit.y)};
+    positionPx = {x: map_size_px.xMin + convertGameUnitToPx(positionGameUnit.x), y: map_size_px.yMin + convertGameUnitToPx(positionGameUnit.y)};
     return positionPx;
 }
 
