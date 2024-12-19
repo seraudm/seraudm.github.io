@@ -4,12 +4,12 @@ function distance(p1, p2){
 }
 
 function convertGameUnitToPx(coordinate){
-    return (map_size_px.xMax - map_size_px.xMin) * coordinate / 1000;
+    return (mapSizePx.xMax - mapSizePx.xMin) * coordinate / 1000;
 }
 
 // Decoupage de la zone de jeu en une grille de coordonnees de 1000 cases
 function convertPositionGameUnitToPx(positionGameUnit){
-    positionPx = {x: map_size_px.xMin + convertGameUnitToPx(positionGameUnit.x), y: map_size_px.yMin + convertGameUnitToPx(positionGameUnit.y)};
+    positionPx = {x: mapSizePx.xMin + convertGameUnitToPx(positionGameUnit.x), y: mapSizePx.yMin + convertGameUnitToPx(positionGameUnit.y)};
     return positionPx;
 }
 
@@ -32,4 +32,20 @@ function convertPositionWallToGameUnit(position) {
 function isValid(position){
     let positionWall = convertPositionGameUnitToWall(position);
     return (!MAP[positionWall.y][positionWall.x]);
+}
+
+function getSideOfTheWall(currentPosition, nextPosition){
+    let currentPositionWall = convertPositionGameUnitToWall(currentPosition);
+    console.log(currentPositionWall);
+    let nextPositionWall = convertPositionGameUnitToWall(nextPosition);
+    console.log(nextPositionWall);
+    if (currentPositionWall.x < nextPositionWall.x){
+        return "left";
+    } else if(currentPositionWall.x > nextPositionWall.x){
+        return "right";
+    } else if (currentPositionWall.y < nextPositionWall.y){
+        return "top";
+    } else {
+        return "bottom";
+    }
 }

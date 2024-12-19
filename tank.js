@@ -5,7 +5,7 @@ class Tank{
     static DEFAULT_SPEED = 150; // Unit: GameUnit/s
     static DEFAULT_ANGLE_SPEED_DEG = 90; // Unit: deg/s
     static DEFAULT_ANGLE_SPEED = Tank.DEFAULT_ANGLE_SPEED_DEG*Math.PI/180; // Unit: rad/s
-    static DEFAULT_SHOOTING_COOLDOWN = 0.75; // Unit: s
+    static DEFAULT_SHOOTING_COOLDOWN = 0.75 // Unit: s
     static DEFAULT_SIZE = 60; //Unit: GameUnit CAREFULL THIS THE DIAMETER
     static NUMBER_CHECKING_POINTS = 32;
     static numberTanks = 0;
@@ -32,9 +32,9 @@ class Tank{
     shoot(dt) {
 
         this.cooldown = Math.max(0, this.cooldown - dt);
-
-        if (listKeysPressed.get(this.keybinds.shoot) && this.cooldown == 0){
-            let bullet = new Bullet(this.position.x + this.size*Math.sin(this.angle), this.position.y - this.size*Math.cos(this.angle), this.angle, this.color)
+        let bulletPositon = {x:this.position.x + this.size*Math.sin(this.angle), y:this.position.y - this.size*Math.cos(this.angle)}
+        if (listKeysPressed.get(this.keybinds.shoot) && this.cooldown == 0 && isValid(bulletPositon)){
+            let bullet = new Bullet(bulletPositon, this.angle, this.color)
             addBullet(bullet);
             this.cooldown = Tank.DEFAULT_SHOOTING_COOLDOWN;
         }
@@ -58,10 +58,10 @@ class Tank{
         
         for (let i=0; i<Tank.NUMBER_CHECKING_POINTS; i++){
             let checkingPoint = {x: nextPosition.x, y: nextPosition.y}; // Copie de nextPosition pour ne pas modifier sa valeur
-            console.log(i,checkingPoint);
+
             checkingPoint.x += Math.sin(this.angle + i * 2*Math.PI/Tank.NUMBER_CHECKING_POINTS) * this.size/2;
             checkingPoint.y += Math.cos(this.angle + i * 2*Math.PI/Tank.NUMBER_CHECKING_POINTS) * this.size/2;
-            console.log(i,checkingPoint);
+            
             validity = validity && isValid(checkingPoint);
         }
 

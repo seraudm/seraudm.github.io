@@ -1,7 +1,7 @@
 const GAME = document.getElementById('game');
 const MAP_HTML = document.getElementById('map');
-let map_coordinates;
-let map_size_px;
+let mapCoordinates;
+let mapSizePx;
 const MAP = [[1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
                 [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1],
                 [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1],
@@ -76,13 +76,13 @@ function drawMap(){
             MAP_HTML.appendChild(cell);
           }
     }
-    map_coordinates = MAP_HTML.getBoundingClientRect();
-    map_size_px={xMax: map_coordinates.right, xMin:map_coordinates.left, yMin:map_coordinates.top, yMax:map_coordinates.bottom};
+    mapCoordinates = MAP_HTML.getBoundingClientRect();
+    mapSizePx={xMax: mapCoordinates.right, xMin:mapCoordinates.left, yMin:mapCoordinates.top, yMax:mapCoordinates.bottom};
 }
 
 function main(){
     drawMap();
-    addTank(new Tank(100,100,0,"rgb(255,0,0)","z","s","q","d"," "));
+    addTank(new Tank(100,100, Math.PI/2,"rgb(255,0,0)","z","s","q","d"," "));
     addTank(new Tank(200,750,0,"rgb(0,255,0)","ArrowUp","ArrowDown","ArrowLeft","ArrowRight","0"));
 }
 
@@ -126,8 +126,8 @@ function updateMapSize(){
         MAP_HTML.style.width = "100vw";
         MAP_HTML.style.height = "100vw";
     }
-    map_coordinates = MAP_HTML.getBoundingClientRect();
-    map_size_px={xMax: map_coordinates.right, xMin:map_coordinates.left, yMin:map_coordinates.top, yMax:map_coordinates.bottom};
+    mapCoordinates = MAP_HTML.getBoundingClientRect();
+    mapSizePx={xMax: mapCoordinates.right, xMin:mapCoordinates.left, yMin:mapCoordinates.top, yMax:mapCoordinates.bottom};
 }
 
 window.addEventListener("resize", updateMapSize)

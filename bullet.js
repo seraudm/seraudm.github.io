@@ -3,12 +3,13 @@ let listBullets = [];
 class Bullet {
     static DEFAULT_SPEED = 400; // Unit: px/s
     static DEFAULT_SIZE = 10; // Unit: px
+    static MAX_NUMBER_BOUNCES = 2;
     static numberBullets = 0;
 
-    constructor (X,Y, angle, color, speed=Bullet.DEFAULT_SPEED, size=Bullet.DEFAULT_SIZE){
+    constructor (position, angle, color, speed=Bullet.DEFAULT_SPEED, size=Bullet.DEFAULT_SIZE){
         this.created = false;
         this.angle = angle;
-        this.position = {x: X, y:Y};
+        this.position = position;
         this.nbBounces = 0;
         this.speed = speed;
         this.id = `bullet${Bullet.numberBullets}`;
@@ -24,14 +25,25 @@ class Bullet {
     }
 
     updatePosition(dt){
-        let nextPosition = this.position;
+        let nextPosition = {x: this.position.x, y:this.position.y};
         nextPosition.x += Math.sin(this.angle) * this.speed *dt;
         nextPosition.y -= Math.cos(this.angle) * this.speed *dt;
 
         if(isValid(nextPosition)){
             this.position = nextPosition;
         } else {
-            this.remove();
+            if (this.nbBounces == Bullet.MAX_NUMBER_BOUNCES){
+                this.remove();
+            } else {
+                let side = getSideOfTheWall(this.position, nextPosition);
+                console.log(side);
+                if (side == "right" || side =="left"){
+                    this.angle = - this.angle;
+                } else {
+                    this.angle = Math.PI - this.angle;
+                }
+            }
+            this.nbBounces ++;
         }
     }
 
