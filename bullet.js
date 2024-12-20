@@ -15,13 +15,19 @@ class Bullet {
         this.id = `bullet${Bullet.numberBullets}`;
         this.color = color;
         this.size = size;
+        this.removed = false;
         Bullet.numberBullets ++;
     }
 
     remove(){
-        const bulletHtml = document.getElementById(this.id);
-        bulletHtml.remove();
-        listBullets.splice(listBullets.indexOf(this), 1);
+        if (!this.removed){
+            if (this.created){
+                const bulletHtml = document.getElementById(this.id);
+                bulletHtml.remove();
+            }
+            listBullets.splice(listBullets.indexOf(this), 1);
+            this.removed = true;
+        }
     }
 
     updatePosition(dt){
@@ -36,7 +42,6 @@ class Bullet {
                 this.remove();
             } else {
                 let side = getSideOfTheWall(this.position, nextPosition);
-                console.log(side);
                 if (side == "right" || side =="left"){
                     this.angle = - this.angle;
                 } else {

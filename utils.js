@@ -36,9 +36,7 @@ function isValid(position){
 
 function getSideOfTheWall(currentPosition, nextPosition){
     let currentPositionWall = convertPositionGameUnitToWall(currentPosition);
-    console.log(currentPositionWall);
     let nextPositionWall = convertPositionGameUnitToWall(nextPosition);
-    console.log(nextPositionWall);
     if (currentPositionWall.x < nextPositionWall.x){
         return "left";
     } else if(currentPositionWall.x > nextPositionWall.x){

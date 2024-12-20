@@ -48,6 +48,7 @@ function collisionsBulletsTanks(){
             if (distance(bullet.position, tank.position) < (bullet.size + tank.size)/2){
                 tank.remove();
                 bullet.remove();
+                break;
             }
         }
     }

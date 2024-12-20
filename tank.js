@@ -10,7 +10,7 @@ class Tank{
     static NUMBER_CHECKING_POINTS = 32;
     static numberTanks = 0;
 
-    constructor (X,Y, angle, color, moveForward, moveBackward, turnLeft, turnRight, shoot, size=Tank.DEFAULT_SIZE){
+    constructor (X,Y, angle, color, moveForward, moveBackward, turnLeft, turnRight, shoot, size=Tank.DEFAULT_SIZE, shootingCooldown=Tank.DEFAULT_SHOOTING_COOLDOWN){
         this.keybinds = {moveForward: moveForward, moveBackward: moveBackward, turnLeft: turnLeft, turnRight: turnRight, shoot: shoot};
         this.created = false;
         this.angle = angle;
@@ -22,9 +22,10 @@ class Tank{
 
         this.speed = Tank.DEFAULT_SPEED;
 
+        this.shootingCooldown = shootingCooldown;
         this.cooldown = 0;
         this.size=size;
-
+        this.removed = false;
         Tank.numberTanks ++;
 
     }
@@ -36,7 +37,7 @@ class Tank{
         if (listKeysPressed.get(this.keybinds.shoot) && this.cooldown == 0 && isValid(bulletPositon)){
             let bullet = new Bullet(bulletPositon, this.angle, this.color)
             addBullet(bullet);
-            this.cooldown = Tank.DEFAULT_SHOOTING_COOLDOWN;
+            this.cooldown = this.shootingCooldown;
         }
     }
 
@@ -115,9 +116,14 @@ class Tank{
     }
 
     remove(){
-        const tankHtml = document.getElementById(this.id);
-        tankHtml.remove();
-        listTanks.splice(listTanks.indexOf(this), 1);
+        if (!this.removed){
+            if (this.created){
+                const tankHtml = document.getElementById(this.id);
+                tankHtml.remove();
+            }
+            listTanks.splice(listTanks.indexOf(this), 1);
+            this.removed = true;
+        }
     }
 
 }
