@@ -2,11 +2,11 @@ let listTanks = [];
 
 
 class Tank{
-    static DEFAULT_SPEED = 150; // Unit: GameUnit/s
+    static DEFAULT_SPEED = 3; // Unit: GameUnit/s
     static DEFAULT_ANGLE_SPEED_DEG = 90; // Unit: deg/s
     static DEFAULT_ANGLE_SPEED = Tank.DEFAULT_ANGLE_SPEED_DEG*Math.PI/180; // Unit: rad/s
     static DEFAULT_SHOOTING_COOLDOWN = 0.75 // Unit: s
-    static DEFAULT_SIZE = 60; //Unit: GameUnit CAREFULL THIS THE DIAMETER
+    static DEFAULT_SIZE = 1; //Unit: GameUnit CAREFULL THIS THE DIAMETER
     static NUMBER_CHECKING_POINTS = 32;
     static numberTanks = 0;
 

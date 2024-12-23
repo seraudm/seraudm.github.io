@@ -26,8 +26,6 @@ const MAP = [[1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
 
 const MAP_SIZE = MAP.length;
 
-
-
 let listKeysPressed = new Map();
 listKeysPressed.set("z",false);
 listKeysPressed.set("q",false);
@@ -83,8 +81,8 @@ function drawMap(){
 
 function main(){
     drawMap();
-    addTank(new Tank(100,100, Math.PI/2,"rgb(255,0,0)","z","s","q","d"," "));
-    addTank(new Tank(200,750,0,"rgb(0,255,0)","ArrowUp","ArrowDown","ArrowLeft","ArrowRight","0"));
+    addTank(new Tank(2.5,2.5, Math.PI/2,"rgb(255,0,0)","z","s","q","d"," "));
+    addTank(new Tank(2.5,5.5,0,"rgb(0,255,0)","ArrowUp","ArrowDown","ArrowLeft","ArrowRight","0"));
 }
 
 main();
