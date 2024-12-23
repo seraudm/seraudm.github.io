@@ -75,10 +75,10 @@ class Tank{
 
     updateAngle(dt){
         if (listKeysPressed.get(this.keybinds.turnLeft)){
-            this.angle -= this.angleSpeed *dt;
+            this.angle = (this.angle - this.angleSpeed *dt) % (2 * Math.PI);
         }
         if (listKeysPressed.get(this.keybinds.turnRight)){
-            this.angle += this.angleSpeed *dt;
+            this.angle = (this.angle + this.angleSpeed *dt) % (2 * Math.PI);
         }
     }
 

@@ -8,7 +8,7 @@ class Bullet {
 
     constructor (position, angle, color, speed=Bullet.DEFAULT_SPEED, size=Bullet.DEFAULT_SIZE){
         this.created = false;
-        this.angle = angle;
+        this.angle = angle % (2 * Math.PI);
         this.position = position;
         this.nbBounces = 0;
         this.speed = speed;
@@ -40,9 +40,9 @@ class Bullet {
             } else {
                 let side = getSideOfTheWall(this.position, nextPosition);
                 if (side == "right" || side =="left"){
-                    this.angle = - this.angle;
+                    this.angle = (-this.angle) % (2 * Math.PI);
                 } else {
-                    this.angle = Math.PI - this.angle;
+                    this.angle = (Math.PI - this.angle) % (2 * Math.PI);
                 }
             }
             this.nbBounces ++;

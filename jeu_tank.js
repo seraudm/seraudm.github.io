@@ -41,12 +41,13 @@ listKeysPressed.set("0",false);
 let currentTime= Date.now();
 
 function collisionsBulletsTanks(){
-    let indexBullet = 0;
     let indexTank = 0;
     while (indexTank<listTanks.length) {
         const tank = listTanks[indexTank];
         let isTankDeleted = false;
-        while (indexBullet<listBullets.length && !isTankDeleted) {
+        let indexBullet = 0;
+
+        while (indexBullet<listBullets.length && !(isTankDeleted)) {
             const bullet = listBullets[indexBullet];
             if (distance(bullet.position, tank.position) < (bullet.size + tank.size)/2){
                 tank.remove();
@@ -55,6 +56,7 @@ function collisionsBulletsTanks(){
             }
             indexBullet ++;
         }
+        
         if (!isTankDeleted){
             indexTank ++;
         }
