@@ -15,19 +15,16 @@ class Bullet {
         this.id = `bullet${Bullet.numberBullets}`;
         this.color = color;
         this.size = size;
-        this.removed = false;
         Bullet.numberBullets ++;
     }
 
     remove(){
-        if (!this.removed){
-            if (this.created){
-                const bulletHtml = document.getElementById(this.id);
-                bulletHtml.remove();
-            }
-            listBullets.splice(listBullets.indexOf(this), 1);
-            this.removed = true;
+        if (this.created){
+            const bulletHtml = document.getElementById(this.id);
+            bulletHtml.remove();
         }
+        listBullets.splice(listBullets.indexOf(this), 1);
+        this.removed = true;
     }
 
     updatePosition(dt){

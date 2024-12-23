@@ -25,7 +25,6 @@ class Tank{
         this.shootingCooldown = shootingCooldown;
         this.cooldown = 0;
         this.size=size;
-        this.removed = false;
         Tank.numberTanks ++;
 
     }
@@ -116,14 +115,12 @@ class Tank{
     }
 
     remove(){
-        if (!this.removed){
-            if (this.created){
-                const tankHtml = document.getElementById(this.id);
-                tankHtml.remove();
-            }
-            listTanks.splice(listTanks.indexOf(this), 1);
-            this.removed = true;
+        if (this.created){
+            const tankHtml = document.getElementById(this.id);
+            tankHtml.remove();
         }
+        listTanks.splice(listTanks.indexOf(this), 1);
+        this.removed = true;
     }
 
 }
