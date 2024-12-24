@@ -13,22 +13,42 @@ function convertPositionGameUnitToPx(positionGameUnit){
 
 function isValid(position){
     let wall = new Wall(position);
-    return (!MAP[wall.line][wall.column]);
+    return (0 <= wall.line && 0 <= wall.column && wall.line < MAP_SIZE && wall.column < MAP_SIZE && !MAP[wall.line][wall.column]);
 }
 
 
 // Return the intersection with the first wall, null if there is no wall in the trajectory
 function getIntersectionWithWall(currentPosition, nextPosition){
     let currentWall = new Wall(currentPosition);
-    let nextWall = new Wall(nextPosition);
-    
-    if (currentWall.column < nextWall.column){
-        return "left";
-    } else if(currentWall.column > nextWall.column){
-        return "right";
-    } else if (currentWall.line < nextWall.line){
-        return "top";
-    } else {
-        return "bottom";
+    let lastWall = new Wall(nextPosition);
+    let trajectory = new Segment(currentPosition, nextPosition);
+    let intersectionWithWall = null;
+    let ignore = null;
+
+    while (!currentWall.equals(lastWall) && intersectionWithWall == null){
+        let tuple = currentWall.getIntersection(trajectory, ignore);
+        let intersectionPoint = tuple[0];
+        let side = tuple[1];
+
+        if (side == "left"){
+            currentWall = currentWall.getLeftWall();
+            ignore = "right";
+        } else if (side == "right"){
+            currentWall = currentWall.getRightWall();
+            ignore = "left";
+        } else if (side == "top"){
+            currentWall = currentWall.getTopWall();
+            ignore = "bottom";
+        } else {
+            currentWall = currentWall.getBottomWall();
+            ignore = "top";
+        }
+
+        if (currentWall.isWall()){
+            intersectionWithWall = intersectionPoint;
+        }        
+
     }
+
+    return intersectionWithWall;
 }

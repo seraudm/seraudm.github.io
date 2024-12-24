@@ -32,20 +32,22 @@ class Bullet {
         nextPosition.x += Math.sin(this.angle) * this.speed *dt;
         nextPosition.y -= Math.cos(this.angle) * this.speed *dt;
 
-        if(isValid(nextPosition)){
+        let intersectionWithWall = getIntersectionWithWall(this.position, nextPosition);
+
+        if (intersectionWithWall == null) {
             this.position = nextPosition;
         } else {
             if (this.nbBounces == Bullet.MAX_NUMBER_BOUNCES){
                 this.remove();
             } else {
-                let side = getIntersectionWithWall(this.position, nextPosition);
-                if (side == "right" || side =="left"){
+                let orientation = intersectionWithWall.getOrientation;
+                if (orientation = "vertical"){
                     this.angle = (-this.angle) % (2 * Math.PI);
                 } else {
                     this.angle = (Math.PI - this.angle) % (2 * Math.PI);
                 }
+                this.nbBounces ++;
             }
-            this.nbBounces ++;
         }
     }
 

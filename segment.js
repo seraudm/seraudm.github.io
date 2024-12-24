@@ -6,7 +6,7 @@ class Segment{
     }
 
     // Return the intersection with an other segment, null if they don't intersect
-    intersect(segment){
+    getIntersection(segment){
         let ab = this.b.sub(this.a);
         let cd = segment.b.sub(segment.a);
         if (ab.isCollinear(cd)){

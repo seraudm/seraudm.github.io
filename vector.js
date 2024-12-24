@@ -5,6 +5,17 @@ class Vector{
         this.y = y;
     }
 
+    getOrientation(){
+        let xd= this.x - Math.floor(this.x);
+        let yd= this.y - Math.floor(this.y);
+        let product = (1 - (xd +yd)) * (yd -x);
+        if (product>0){
+            return "vertical";
+        } else {
+            return "horizontal";
+        }
+    }
+
     copy(){
         return new Vector(this.x, this.y);
     }
