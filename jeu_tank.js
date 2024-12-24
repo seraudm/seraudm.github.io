@@ -49,7 +49,7 @@ function collisionsBulletsTanks(){
 
         while (indexBullet<listBullets.length && !(isTankDeleted)) {
             const bullet = listBullets[indexBullet];
-            if (distance(bullet.position, tank.position) < (bullet.size + tank.size)/2){
+            if ( (bullet.position.sub(tank.position)).norm() < (bullet.size + tank.size)/2){
                 tank.remove();
                 bullet.remove();
                 isTankDeleted = true;

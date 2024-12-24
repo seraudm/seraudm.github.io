@@ -36,4 +36,9 @@ class Vector{
     times(p){
         return new Vector(this.x * p, this.y * p);
     }
+
+    norm(){
+        let n = Math.sqrt((this.x)**2 + (this.y)**2);
+        return n;
+    }
 }

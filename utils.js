@@ -1,11 +1,7 @@
-function distance(p1, p2){
-    let d = Math.sqrt((p1.x - p2.x)**2 + (p1.y - p2.y)**2);
-    return d;
-}
-
 function convertGameUnitToPx(coordinate){
     return (mapSizePx.xMax - mapSizePx.xMin) * coordinate / MAP_SIZE;
 }
+
 
 function convertPositionGameUnitToPx(positionGameUnit){
     positionPx = new Vector(mapSizePx.xMin + convertGameUnitToPx(positionGameUnit.x), mapSizePx.yMin + convertGameUnitToPx(positionGameUnit.y));
@@ -14,27 +10,23 @@ function convertPositionGameUnitToPx(positionGameUnit){
 
 
 
-function convertPositionGameUnitToIndexWall(position) {
-    let line = Math.floor(position.y);
-    let column = Math.floor(position.x);
-    let indexWall = { line: line, column: column};
-    return indexWall;
-}
 
 function isValid(position){
-    let indexWall = convertPositionGameUnitToIndexWall(position);
-    return (!MAP[indexWall.line][indexWall.column]);
+    let wall = new Wall(position);
+    return (!MAP[wall.line][wall.column]);
 }
 
-function getSideOfTheWall(currentPosition, nextPosition){
-    let currentIndexWall = convertPositionGameUnitToIndexWall(currentPosition);
-    let nextIndexWall = convertPositionGameUnitToIndexWall(nextPosition);
+
+// Return the intersection with the first wall, null if there is no wall in the trajectory
+function getIntersectionWithWall(currentPosition, nextPosition){
+    let currentWall = new Wall(currentPosition);
+    let nextWall = new Wall(nextPosition);
     
-    if (currentIndexWall.column < nextIndexWall.column){
+    if (currentWall.column < nextWall.column){
         return "left";
-    } else if(currentIndexWall.column > nextIndexWall.column){
+    } else if(currentWall.column > nextWall.column){
         return "right";
-    } else if (currentIndexWall.line < nextIndexWall.line){
+    } else if (currentWall.line < nextWall.line){
         return "top";
     } else {
         return "bottom";

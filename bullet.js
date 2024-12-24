@@ -28,7 +28,7 @@ class Bullet {
     }
 
     updatePosition(dt){
-        let nextPosition = {x: this.position.x, y:this.position.y};
+        let nextPosition = this.position.copy();
         nextPosition.x += Math.sin(this.angle) * this.speed *dt;
         nextPosition.y -= Math.cos(this.angle) * this.speed *dt;
 
@@ -38,7 +38,7 @@ class Bullet {
             if (this.nbBounces == Bullet.MAX_NUMBER_BOUNCES){
                 this.remove();
             } else {
-                let side = getSideOfTheWall(this.position, nextPosition);
+                let side = getIntersectionWithWall(this.position, nextPosition);
                 if (side == "right" || side =="left"){
                     this.angle = (-this.angle) % (2 * Math.PI);
                 } else {
