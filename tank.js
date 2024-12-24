@@ -10,11 +10,11 @@ class Tank{
     static NUMBER_CHECKING_POINTS = 32;
     static numberTanks = 0;
 
-    constructor (X,Y, angle, color, moveForward, moveBackward, turnLeft, turnRight, shoot, size=Tank.DEFAULT_SIZE, shootingCooldown=Tank.DEFAULT_SHOOTING_COOLDOWN){
+    constructor (position, angle, color, moveForward, moveBackward, turnLeft, turnRight, shoot, size=Tank.DEFAULT_SIZE, shootingCooldown=Tank.DEFAULT_SHOOTING_COOLDOWN){
         this.keybinds = {moveForward: moveForward, moveBackward: moveBackward, turnLeft: turnLeft, turnRight: turnRight, shoot: shoot};
         this.created = false;
         this.angle = angle;
-        this.position = {x: X, y:Y};
+        this.position = position;
         this.color = color;
         this.angleSpeed = Tank.DEFAULT_ANGLE_SPEED;
 
@@ -32,7 +32,7 @@ class Tank{
     shoot(dt) {
 
         this.cooldown = Math.max(0, this.cooldown - dt);
-        let bulletPositon = {x:this.position.x + this.size*Math.sin(this.angle), y:this.position.y - this.size*Math.cos(this.angle)}
+        let bulletPositon = new Vector(this.position.x + this.size*Math.sin(this.angle), this.position.y - this.size*Math.cos(this.angle));
         if (listKeysPressed.get(this.keybinds.shoot) && this.cooldown == 0 && isValid(bulletPositon)){
             let bullet = new Bullet(bulletPositon, this.angle, this.color)
             addBullet(bullet);
@@ -42,7 +42,7 @@ class Tank{
 
     updatePosition(dt){
         // Calculate next position
-        let nextPosition = {x: this.position.x, y:this.position.y};
+        let nextPosition = this.position.copy();
 
         if (listKeysPressed.get(this.keybinds.moveForward)){
             nextPosition.x += Math.sin(this.angle) * this.speed *dt;
@@ -57,7 +57,7 @@ class Tank{
         let validity = isValid(nextPosition);
         
         for (let i=0; i<Tank.NUMBER_CHECKING_POINTS; i++){
-            let checkingPoint = {x: nextPosition.x, y: nextPosition.y}; // Copie de nextPosition pour ne pas modifier sa valeur
+            let checkingPoint = nextPosition.copy(); // Copie de nextPosition pour ne pas modifier sa valeur
 
             checkingPoint.x += Math.sin(this.angle + i * 2*Math.PI/Tank.NUMBER_CHECKING_POINTS) * this.size/2;
             checkingPoint.y += Math.cos(this.angle + i * 2*Math.PI/Tank.NUMBER_CHECKING_POINTS) * this.size/2;

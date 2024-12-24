@@ -8,7 +8,7 @@ function convertGameUnitToPx(coordinate){
 }
 
 function convertPositionGameUnitToPx(positionGameUnit){
-    positionPx = {x: mapSizePx.xMin + convertGameUnitToPx(positionGameUnit.x), y: mapSizePx.yMin + convertGameUnitToPx(positionGameUnit.y)};
+    positionPx = new Vector(mapSizePx.xMin + convertGameUnitToPx(positionGameUnit.x), mapSizePx.yMin + convertGameUnitToPx(positionGameUnit.y));
     return positionPx;
 }
 

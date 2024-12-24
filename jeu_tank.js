@@ -91,10 +91,12 @@ function drawMap(){
     mapSizePx={xMax: mapCoordinates.right, xMin:mapCoordinates.left, yMin:mapCoordinates.top, yMax:mapCoordinates.bottom};
 }
 
+
+
 function main(){
     drawMap();
-    addTank(new Tank(2.5,2.5, Math.PI/2,"rgb(255,0,0)","z","s","q","d"," "));
-    addTank(new Tank(2.5,5.5,0,"rgb(0,255,0)","ArrowUp","ArrowDown","ArrowLeft","ArrowRight","0"));
+    addTank(new Tank(new Vector(2.5,2.5), Math.PI/2,"rgb(255,0,0)","z","s","q","d"," "));
+    addTank(new Tank(new Vector(2.5,5.5),0,"rgb(0,255,0)","ArrowUp","ArrowDown","ArrowLeft","ArrowRight","0"));
 }
 
 main();
