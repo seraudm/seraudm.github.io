@@ -40,8 +40,9 @@ class Bullet {
             if (this.nbBounces == Bullet.MAX_NUMBER_BOUNCES){
                 this.remove();
             } else {
-                let orientation = intersectionWithWall.getOrientation;
-                if (orientation = "vertical"){
+                let orientation = intersectionWithWall.getOrientation();
+                console.log(orientation);
+                if (orientation == "vertical"){
                     this.angle = (-this.angle) % (2 * Math.PI);
                 } else {
                     this.angle = (Math.PI - this.angle) % (2 * Math.PI);
