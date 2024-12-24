@@ -114,7 +114,7 @@ function tick(){
     drawTanks();
 }
 
-setInterval(tick, 20);
+setInterval(tick, 10);
 
 
 // Mise a jour des touches pressées
