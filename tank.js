@@ -6,37 +6,45 @@ class Tank{
     static DEFAULT_ANGLE_SPEED_DEG = 90; // Unit: deg/s
     static DEFAULT_ANGLE_SPEED = Tank.DEFAULT_ANGLE_SPEED_DEG*Math.PI/180; // Unit: rad/s
     static DEFAULT_SHOOTING_COOLDOWN = 0.75 // Unit: s
-    static DEFAULT_SIZE = 1; //Unit: GameUnit CAREFULL THIS THE DIAMETER
+    static DEFAULT_SIZE = 0.9; //Unit: GameUnit CAREFULL THIS THE DIAMETER
     static NUMBER_CHECKING_POINTS = 32;
     static numberTanks = 0;
-
+    
     constructor (position, angle, color, moveForward, moveBackward, turnLeft, turnRight, shoot, size=Tank.DEFAULT_SIZE, shootingCooldown=Tank.DEFAULT_SHOOTING_COOLDOWN){
+        
         this.keybinds = {moveForward: moveForward, moveBackward: moveBackward, turnLeft: turnLeft, turnRight: turnRight, shoot: shoot};
         this.created = false;
         this.angle = angle;
         this.position = position;
         this.color = color;
         this.angleSpeed = Tank.DEFAULT_ANGLE_SPEED;
-
+        
         this.id = `tank${Tank.numberTanks}`;
-
+        
         this.speed = Tank.DEFAULT_SPEED;
-
+        
         this.shootingCooldown = shootingCooldown;
         this.cooldown = 0;
         this.size=size;
         Tank.numberTanks ++;
+        this.isShooting = false;
 
+        this.SHOOTING_SOUND = new Audio("tir_tank.mp3");
     }
 
     shoot(dt) {
-
+        this.isShooting = false;
         this.cooldown = Math.max(0, this.cooldown - dt);
         let bulletPositon = new Vector(this.position.x + this.size*Math.sin(this.angle), this.position.y - this.size*Math.cos(this.angle));
+
         if (listKeysPressed.get(this.keybinds.shoot) && this.cooldown == 0 && isValid(bulletPositon)){
             let bullet = new Bullet(bulletPositon, this.angle, this.color)
             addBullet(bullet);
             this.cooldown = this.shootingCooldown;
+            this.isShooting = true;
+
+            this.SHOOTING_SOUND.currentTime = 0;
+            this.SHOOTING_SOUND.play();
         }
     }
 
@@ -133,6 +141,7 @@ class Tank{
             tankHtml.style.width = `${sizePx}px`;
             GAME.appendChild(tankHtml);
             tankHtml.appendChild(canonHtml);
+
         } else {
             const tankHtml = document.getElementById(this.id);
 
@@ -142,6 +151,21 @@ class Tank{
             tankHtml.style.transform = `translate(-50%, -50%) rotate(${this.angle}rad)`;
             tankHtml.style.height = `${sizePx}px`;
             tankHtml.style.width = `${sizePx}px`;
+
+            const canonHtml = tankHtml.getElementsByClassName("canon")[0];
+
+
+            if (this.isShooting){
+                canonHtml.style.animationDuration = ""; // To reset the animation
+                canonHtml.style.animationName = "";
+
+                void canonHtml.offsetWidth; // To trigger the element so the reset is taken into account
+
+                canonHtml.style.animationDuration = `${this.shootingCooldown}s`; // To set up the animation, the faster the tank can shoot the faster the animation is
+                canonHtml.style.animationName = "canonAnimation";
+            }
+
+
         }
     }
 

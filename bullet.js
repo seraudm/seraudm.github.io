@@ -16,6 +16,8 @@ class Bullet {
         this.color = color;
         this.size = size;
         Bullet.numberBullets ++;
+
+        this.BOUNCING_SOUND = new Audio("rebond.mp3");
     }
 
     remove(){
@@ -49,7 +51,11 @@ class Bullet {
                     this.angle = (Math.PI - this.angle) % (2 * Math.PI);
                 }
                 this.nbBounces ++;
+
+                
             }
+            this.BOUNCING_SOUND.currentTime = 0;
+            this.BOUNCING_SOUND.play();
         }
     }
 
