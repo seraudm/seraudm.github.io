@@ -42,9 +42,6 @@ class Tank{
             addBullet(bullet);
             this.cooldown = this.shootingCooldown;
             this.isShooting = true;
-
-            this.SHOOTING_SOUND.currentTime = 0;
-            this.SHOOTING_SOUND.play();
         }
     }
 
@@ -127,21 +124,38 @@ class Tank{
         if (!(this.created)){
             this.created = true;
             const tankHtml = document.createElement("div");
+            const chassisHtml = document.createElement("div");
             const canonHtml  = document.createElement("div");
+            const turretHtml = document.createElement("div");
+            const leftCaterpillarHtml = document.createElement("div");
+            const rightCaterpillarHtml = document.createElement("div");
+
+
+            leftCaterpillarHtml.className = "caterpillar leftCaterpillar";
+            rightCaterpillarHtml.className = "caterpillar rightCaterpillar";
+
+            turretHtml.className = "turret";
+            chassisHtml.className = "chassis";
+            turretHtml.style.backgroundColor = this.color;
+            
             canonHtml.className = "canon";
             tankHtml.className = "tank";
             tankHtml.id = this.id;
 
             tankHtml.style.left = `${positionPx.x}px`;
             tankHtml.style.top = `${positionPx.y}px`;
-            tankHtml.style.backgroundColor = this.color;
+            chassisHtml.style.backgroundColor = this.color;
 
             tankHtml.style.transform = `translate(-50%, -50%) rotate(${this.angle}rad)`;
             tankHtml.style.height = `${sizePx}px`;
             tankHtml.style.width = `${sizePx}px`;
             GAME.appendChild(tankHtml);
-            tankHtml.appendChild(canonHtml);
+            tankHtml.appendChild(leftCaterpillarHtml);
+            tankHtml.appendChild(rightCaterpillarHtml);
 
+            tankHtml.appendChild(chassisHtml);
+            tankHtml.appendChild(canonHtml);
+            tankHtml.appendChild(turretHtml);
         } else {
             const tankHtml = document.getElementById(this.id);
 
@@ -163,6 +177,9 @@ class Tank{
 
                 canonHtml.style.animationDuration = `${this.shootingCooldown}s`; // To set up the animation, the faster the tank can shoot the faster the animation is
                 canonHtml.style.animationName = "canonAnimation";
+
+                this.SHOOTING_SOUND.currentTime = 0;
+                this.SHOOTING_SOUND.play();
             }
 
 
