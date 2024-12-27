@@ -4,7 +4,7 @@ class Vector{
         this.x = x;
         this.y = y;
     }
-
+    
     getOrientation(){
         let xd= this.x - Math.floor(this.x);
         let yd= this.y - Math.floor(this.y);
@@ -52,4 +52,5 @@ class Vector{
         let n = Math.sqrt((this.x)**2 + (this.y)**2);
         return n;
     }
+
 }

@@ -54,21 +54,52 @@ class Tank{
         }
 
         // Verify the validity of the next postion, using NUMBER_CHECKING_POINT checking points around the tank and the center
-        let validity = isValid(nextPosition);
+        let initialSpeedVector = nextPosition.sub(this.position);
+        let speedVector = initialSpeedVector;
+        let orientation = null; // To make a projection of the speed vector either horizontal or vertical and know if there has been an intersection
         
         for (let i=0; i<Tank.NUMBER_CHECKING_POINTS; i++){
-            let checkingPoint = nextPosition.copy(); // Copie de nextPosition pour ne pas modifier sa valeur
+            let nextCheckingPoint = nextPosition.copy();
+            let currentCheckingPoint = this.position.copy();
 
-            checkingPoint.x += Math.sin(this.angle + i * 2*Math.PI/Tank.NUMBER_CHECKING_POINTS) * this.size/2;
-            checkingPoint.y += Math.cos(this.angle + i * 2*Math.PI/Tank.NUMBER_CHECKING_POINTS) * this.size/2;
+            nextCheckingPoint.y += Math.cos(i * 2*Math.PI/Tank.NUMBER_CHECKING_POINTS) * this.size/2;
+            nextCheckingPoint.x += Math.sin(i * 2*Math.PI/Tank.NUMBER_CHECKING_POINTS) * this.size/2;
             
-            validity = validity && isValid(checkingPoint);
+            currentCheckingPoint.y += Math.cos(i * 2*Math.PI/Tank.NUMBER_CHECKING_POINTS) * this.size/2;
+            currentCheckingPoint.x += Math.sin(i * 2*Math.PI/Tank.NUMBER_CHECKING_POINTS) * this.size/2;
+
+            let intersectionWithWall = getIntersectionWithWall(currentCheckingPoint, nextCheckingPoint);
+
+            if (intersectionWithWall != null){
+                // Update the orientation, if it's different from the previous one, the value is "both"
+                let checkingOrientation = intersectionWithWall.getOrientation();
+                if (orientation == null){
+                    orientation = checkingOrientation;
+                } else if (checkingOrientation != orientation){
+                    orientation = "both";
+                }
+
+                // Keep the speed vector with the lower norm
+                let checkingVector = intersectionWithWall.sub(currentCheckingPoint);
+                if (checkingVector.norm() < speedVector.norm()){
+                    speedVector = checkingVector;
+                }
+            }
+
+
         }
 
-        if (validity){
-            this.position = nextPosition;
+        if (orientation == null){
+            this.position = this.position.sum(speedVector);
+        } else {
+            speedVector = speedVector.times((speedVector.norm()-EPSILON)/speedVector.norm()); // Allow the tank to remain EPSILON GameUnits from the wall 
+            if (orientation == "vertical"){
+            speedVector.y = initialSpeedVector.y; // Restablish the initial vertical velocity
+            } else if (orientation == "horizontal"){
+            speedVector.x = initialSpeedVector.x; // Restablish the initial horizontal velocity
+            }
+            this.position = this.position.sum(speedVector);
         }
-
 
         this.updateAngle(dt);
     }

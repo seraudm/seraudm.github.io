@@ -35,13 +35,14 @@ class Bullet {
         let intersectionWithWall = getIntersectionWithWall(this.position, nextPosition);
 
         if (intersectionWithWall == null) {
-            this.position = nextPosition;
+            this.position = nextPosition; // The bullet doesn't hit any wall
         } else {
             if (this.nbBounces == Bullet.MAX_NUMBER_BOUNCES){
                 this.remove();
             } else {
-                let orientation = intersectionWithWall.getOrientation();
-                console.log(orientation);
+                let speedVector = intersectionWithWall.sub(this.position);
+                speedVector = speedVector.times((speedVector.norm()-EPSILON)/speedVector.norm()); // Allow the bullet to remain EPSILON GameUnits from the wall 
+                let orientation = intersectionWithWall.getOrientation(); // Check the wall orientation to bounce in the correct direction
                 if (orientation == "vertical"){
                     this.angle = (-this.angle) % (2 * Math.PI);
                 } else {

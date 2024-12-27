@@ -1,5 +1,6 @@
 const GAME = document.getElementById('game');
 const MAP_HTML = document.getElementById('map');
+const EPSILON = 10**(-5);
 let mapCoordinates;
 let mapSizePx;
 const MAP = [[1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
