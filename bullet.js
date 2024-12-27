@@ -17,7 +17,7 @@ class Bullet {
         this.size = size;
         Bullet.numberBullets ++;
 
-        this.BOUNCING_SOUND = new Audio("rebond.mp3");
+        this.BOUNCING_SOUND = new Audio("audio/rebond.mp3");
     }
 
     remove(){

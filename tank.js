@@ -29,7 +29,7 @@ class Tank{
         Tank.numberTanks ++;
         this.isShooting = false;
 
-        this.SHOOTING_SOUND = new Audio("tir_tank.mp3");
+        this.SHOOTING_SOUND = new Audio("audio/tir_tank.mp3");
     }
 
     shoot(dt) {
