@@ -129,8 +129,9 @@ class Tank{
             const turretHtml = document.createElement("div");
             const leftCaterpillarHtml = document.createElement("div");
             const rightCaterpillarHtml = document.createElement("div");
+            const endCanonHtml = document.createElement("div");
 
-
+            endCanonHtml.className = "endCanon";
             leftCaterpillarHtml.className = "caterpillar leftCaterpillar";
             rightCaterpillarHtml.className = "caterpillar rightCaterpillar";
 
@@ -156,6 +157,7 @@ class Tank{
             tankHtml.appendChild(chassisHtml);
             tankHtml.appendChild(canonHtml);
             tankHtml.appendChild(turretHtml);
+            canonHtml.appendChild(endCanonHtml);
         } else {
             const tankHtml = document.getElementById(this.id);
 

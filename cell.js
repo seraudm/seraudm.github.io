@@ -1,4 +1,4 @@
-class Wall{
+class Cell{
 
     constructor (v){
         this.line = Math.floor(v.y);
@@ -6,7 +6,7 @@ class Wall{
     }
 
     isWall(){
-        return (0 <= this.line && 0 <= this.column && this.line < MAP_SIZE && this.column < MAP_SIZE && MAP[this.line][this.column]);
+        return (0 <= this.line && 0 <= this.column && this.line < MAP_SIZE_Y && this.column < MAP_SIZE_X && MAP[this.line][this.column]);
     }
 
     getTopSegment(){
@@ -34,19 +34,19 @@ class Wall{
     }
 
     getTopWall(){
-        return new Wall(new Vector(this.column, this.line-1));
+        return new Cell(new Vector(this.column, this.line-1));
     }
 
     getBottomWall(){
-        return new Wall(new Vector(this.column, this.line+1));
+        return new Cell(new Vector(this.column, this.line+1));
     }
 
     getRightWall(){
-        return new Wall(new Vector(this.column+1, this.line));
+        return new Cell(new Vector(this.column+1, this.line));
     }
 
     getLeftWall(){
-        return new Wall(new Vector(this.column-1, this.line));
+        return new Cell(new Vector(this.column-1, this.line));
     }
 
     equals(wall){

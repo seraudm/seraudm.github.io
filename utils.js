@@ -1,5 +1,5 @@
 function convertGameUnitToPx(coordinate){
-    return (mapSizePx.xMax - mapSizePx.xMin) * coordinate / MAP_SIZE;
+    return (mapSizePx.xMax - mapSizePx.xMin) * coordinate / MAP_SIZE_X;
 }
 
 
@@ -12,15 +12,15 @@ function convertPositionGameUnitToPx(positionGameUnit){
 
 
 function isValid(position){
-    let wall = new Wall(position);
-    return (0 <= wall.line && 0 <= wall.column && wall.line < MAP_SIZE && wall.column < MAP_SIZE && !MAP[wall.line][wall.column]);
+    let wall = new Cell(position);
+    return (!wall.isWall());
 }
 
 
 // Return the intersection with the first wall, null if there is no wall in the trajectory
 function getIntersectionWithWall(currentPosition, nextPosition){
-    let currentWall = new Wall(currentPosition);
-    let lastWall = new Wall(nextPosition);
+    let currentWall = new Cell(currentPosition);
+    let lastWall = new Cell(nextPosition);
     let trajectory = new Segment(currentPosition, nextPosition);
     let intersectionWithWall = null;
     let ignore = null;

@@ -92,6 +92,14 @@ body {
   }
 }
 
+.tank .canon .endCanon{
+    position: absolute;
+    width: 130%;
+    height: 20%;
+    background-color: black;
+    top: 0%;
+    left: -15%;
+}
 
 .bullet {
     position: absolute;

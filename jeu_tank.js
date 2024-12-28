@@ -18,14 +18,10 @@ const MAP = [[1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
                 [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1],
                 [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1],
                 [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1],
-                [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1],
-                [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1],
-                [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1],
-                [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1],
-                [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1],
                 [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]];
 
-const MAP_SIZE = MAP.length;
+const MAP_SIZE_X = MAP[0].length;
+const MAP_SIZE_Y = MAP.length;
 
 let listKeysPressed = new Map();
 listKeysPressed.set("z",false);
@@ -67,19 +63,10 @@ function collisionsBulletsTanks(){
 
 function drawMap(){
     
-    MAP_HTML.style.gridTemplateColumns = `repeat(${MAP_SIZE}, 1fr)`;
+    MAP_HTML.style.gridTemplate = `repeat(${MAP_SIZE_Y}, 1fr) / repeat(${MAP_SIZE_X}, 1fr)`;
 
-    if (window.innerHeight<window.innerWidth){
-        MAP_HTML.style.width = "100vh";
-        MAP_HTML.style.height = "100vh";
-
-    } else {
-        MAP_HTML.style.width = "100vw";
-        MAP_HTML.style.height = "100vw";
-    }
-
-    for (let i = 0; i < MAP_SIZE; i++) {
-        for (let j = 0; j < MAP_SIZE; j++) {
+    for (let i = 0; i < MAP_SIZE_Y; i++) {
+        for (let j = 0; j < MAP_SIZE_X; j++) {
             const cell = document.createElement("div");
             cell.classList.add("cell");
             if (MAP[i][j]===1){
@@ -88,8 +75,9 @@ function drawMap(){
             MAP_HTML.appendChild(cell);
           }
     }
-    mapCoordinates = MAP_HTML.getBoundingClientRect();
-    mapSizePx={xMax: mapCoordinates.right, xMin:mapCoordinates.left, yMin:mapCoordinates.top, yMax:mapCoordinates.bottom};
+
+    updateMapSize();
+
 }
 
 
@@ -132,13 +120,14 @@ document.addEventListener("keyup", (e) => {
 });
 
 function updateMapSize(){
-    if (window.innerHeight<window.innerWidth){
-        MAP_HTML.style.width = "100vh";
+    let ratio = MAP_SIZE_X / MAP_SIZE_Y;
+    if (window.innerHeight * MAP_SIZE_X < window.innerWidth * MAP_SIZE_Y){
+        MAP_HTML.style.width = `${100 * ratio}vh`;
         MAP_HTML.style.height = "100vh";
 
     } else {
         MAP_HTML.style.width = "100vw";
-        MAP_HTML.style.height = "100vw";
+        MAP_HTML.style.height = `${100 / ratio}vw`;
     }
     mapCoordinates = MAP_HTML.getBoundingClientRect();
     mapSizePx={xMax: mapCoordinates.right, xMin:mapCoordinates.left, yMin:mapCoordinates.top, yMax:mapCoordinates.bottom};
