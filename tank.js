@@ -28,6 +28,7 @@ class Tank{
         this.size=size;
         Tank.numberTanks ++;
         this.isShooting = false;
+        this.wasShootingKeyReleased = true;
 
         this.SHOOTING_SOUND = new Audio("audio/tir_tank.mp3");
     }
@@ -37,11 +38,16 @@ class Tank{
         this.cooldown = Math.max(0, this.cooldown - dt);
         let bulletPositon = new Vector(this.position.x + this.size*Math.sin(this.angle), this.position.y - this.size*Math.cos(this.angle));
 
-        if (listKeysPressed.get(this.keybinds.shoot) && this.cooldown == 0 && isValid(bulletPositon)){
+        if (!listKeysPressed.get(this.keybinds.shoot)){
+            this.wasShootingKeyReleased = true;
+        }
+
+        if (listKeysPressed.get(this.keybinds.shoot) && this.cooldown == 0 && isValid(bulletPositon) && this.wasShootingKeyReleased){
             let bullet = new Bullet(bulletPositon, this.angle, this.color)
             addBullet(bullet);
             this.cooldown = this.shootingCooldown;
             this.isShooting = true;
+            this.wasShootingKeyReleased = false;
         }
     }
 
