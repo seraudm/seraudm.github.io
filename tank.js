@@ -2,7 +2,8 @@ let listTanks = [];
 
 
 class Tank{
-    static DEFAULT_SPEED = 3; // Unit: GameUnit/s
+    static DEFAULT_FORWARD_SPEED = 3; // Unit: GameUnit/s
+    static DEFAULT_BACKWARD_SPEED = 1.5; // Unit: GameUnit/s
     static DEFAULT_ANGLE_SPEED_DEG = 90; // Unit: deg/s
     static DEFAULT_ANGLE_SPEED = Tank.DEFAULT_ANGLE_SPEED_DEG*Math.PI/180; // Unit: rad/s
     static DEFAULT_SHOOTING_COOLDOWN = 0.75 // Unit: s
@@ -21,7 +22,9 @@ class Tank{
         
         this.id = `tank${Tank.numberTanks}`;
         
-        this.speed = Tank.DEFAULT_SPEED;
+        this.forwardSpeed = Tank.DEFAULT_FORWARD_SPEED;
+        this.backwardSpeed = Tank.DEFAULT_BACKWARD_SPEED;
+
         
         this.shootingCooldown = shootingCooldown;
         this.cooldown = 0;
@@ -56,12 +59,12 @@ class Tank{
         let nextPosition = this.position.copy();
 
         if (listKeysPressed.get(this.keybinds.moveForward)){
-            nextPosition.x += Math.sin(this.angle) * this.speed *dt;
-            nextPosition.y -= Math.cos(this.angle) * this.speed *dt;
+            nextPosition.x += Math.sin(this.angle) * this.forwardSpeed *dt;
+            nextPosition.y -= Math.cos(this.angle) * this.forwardSpeed *dt;
         }
         if (listKeysPressed.get(this.keybinds.moveBackward)){
-            nextPosition.x -= Math.sin(this.angle) * this.speed *dt;
-            nextPosition.y += Math.cos(this.angle) * this.speed *dt;
+            nextPosition.x -= Math.sin(this.angle) * this.backwardSpeed *dt;
+            nextPosition.y += Math.cos(this.angle) * this.backwardSpeed *dt;
         }
 
         // Verify the validity of the next postion, using NUMBER_CHECKING_POINT checking points around the tank and the center

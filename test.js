@@ -10,3 +10,5 @@ console.log(wall.getTopSegment());
 console.log(wall.getBottomSegment());
 console.log(wall.getLeftSegment());
 console.log(wall.getRightSegment());
+
+getMap("map1");

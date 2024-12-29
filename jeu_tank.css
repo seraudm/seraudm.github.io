@@ -3,7 +3,6 @@ body {
     padding: 0;
     overflow: hidden;
     font-family: Arial, sans-serif;
-    background-color: #7ec850;
 }
 
 #game {
@@ -18,7 +17,7 @@ body {
 #map {
     display: grid;
     background-color: #333;
-  }
+}
 
 .cell {
     background-color: #fff;

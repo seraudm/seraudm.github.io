@@ -31,16 +31,16 @@ function getIntersectionWithWall(currentPosition, nextPosition){
         let side = tuple[1];
 
         if (side == "left"){
-            currentWall = currentWall.getLeftWall();
+            currentWall = currentWall.getLeftCell();
             ignore = "right";
         } else if (side == "right"){
-            currentWall = currentWall.getRightWall();
+            currentWall = currentWall.getRightCell();
             ignore = "left";
         } else if (side == "top"){
-            currentWall = currentWall.getTopWall();
+            currentWall = currentWall.getTopCell();
             ignore = "bottom";
         } else {
-            currentWall = currentWall.getBottomWall();
+            currentWall = currentWall.getBottomCell();
             ignore = "top";
         }
 
@@ -51,4 +51,24 @@ function getIntersectionWithWall(currentPosition, nextPosition){
     }
 
     return intersectionWithWall;
+}
+
+function getMap(imageID){
+    let canvas = document.createElement("canvas");
+    let context = canvas.getContext("2d");
+    let img = document.getElementById(imageID);
+
+    let width = img.width;
+    let height = img.height;
+
+    console.log(width);
+    console.log(height);
+
+    canvas.width = width
+    canvas.height = height;
+    context.drawImage(img, 0, 0 );
+
+    document.body.appendChild(canvas);
+    let myData = context.getImageData(0, 0, img.width, img.height);
+    console.log(myData);
 }

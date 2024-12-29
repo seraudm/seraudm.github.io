@@ -33,19 +33,19 @@ class Cell{
         return new Segment(a,b);
     }
 
-    getTopWall(){
+    getTopCell(){
         return new Cell(new Vector(this.column, this.line-1));
     }
 
-    getBottomWall(){
+    getBottomCell(){
         return new Cell(new Vector(this.column, this.line+1));
     }
 
-    getRightWall(){
+    getRightCell(){
         return new Cell(new Vector(this.column+1, this.line));
     }
 
-    getLeftWall(){
+    getLeftCell(){
         return new Cell(new Vector(this.column-1, this.line));
     }
 
