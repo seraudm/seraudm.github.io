@@ -184,11 +184,44 @@ class Tank{
         return endCanonHtml;
     }
 
-    createCanonHtml(){
+    createTriangleHtml(width, angle, colour){
+        const triangleHtml = document.createElement("div");
+
+        triangleHtml.className = "triangle";
+        triangleHtml.style.borderBottom = `${width}px solid ` + colour;
+        triangleHtml.style.borderLeft = `${width/2}px solid transparent`;
+        triangleHtml.style.borderRight = `${width/2}px solid transparent`;
+        triangleHtml.style.transform = `translate(-50%,0) rotate(${angle}deg)`;
+
+        return triangleHtml;
+    }
+
+    createExplosionHtml(sizePx){
+        const explosionHtml = document.createElement("div");
+
+        explosionHtml.className = "explosion";
+
+
+        let widthBigTriangle = sizePx * 0.26;
+        let widthSmallTriangle = 2 * widthBigTriangle /3
+
+        explosionHtml.appendChild(this.createTriangleHtml(widthBigTriangle, 0, "rgb(255, 98, 0)"));
+        explosionHtml.appendChild(this.createTriangleHtml(widthBigTriangle, 45, "rgb(255, 98, 0)"));
+        explosionHtml.appendChild(this.createTriangleHtml(widthBigTriangle, -45, "rgb(255, 98, 0)"));
+        explosionHtml.appendChild(this.createTriangleHtml(widthSmallTriangle, 0, "rgb(255, 234, 0)"));
+        explosionHtml.appendChild(this.createTriangleHtml(widthSmallTriangle, 45, "rgb(255, 234, 0)"));
+        explosionHtml.appendChild(this.createTriangleHtml(widthSmallTriangle, -45, "rgb(255, 234, 0)"));
+
+
+        return explosionHtml;
+    }
+
+    createCanonHtml(sizePx){
         const canonHtml  = document.createElement("div");
 
         canonHtml.className = "canon";
 
+        canonHtml.appendChild(this.createExplosionHtml(sizePx));
         canonHtml.appendChild(this. createEndCanonHtml());
 
         return canonHtml;
@@ -202,6 +235,8 @@ class Tank{
 
         return turretHtml;
     }
+
+
 
     createTankHtml(sizePx, positionPx){
         const tankHtml = document.createElement("div");
@@ -217,7 +252,7 @@ class Tank{
         tankHtml.appendChild(this.createLeftCaterpillarHtml());
         tankHtml.appendChild(this.createRightCaterpillarHtml());
         tankHtml.appendChild(this.createChassisHtml());
-        tankHtml.appendChild(this.createCanonHtml());
+        tankHtml.appendChild(this.createCanonHtml(sizePx));
         tankHtml.appendChild(this.createTurretHtml());
 
         return tankHtml;
@@ -243,6 +278,8 @@ class Tank{
             tankHtml.style.width = `${sizePx}px`;
 
             const canonHtml = tankHtml.getElementsByClassName("canon")[0];
+            const explosionHtml = tankHtml.getElementsByClassName("explosion")[0];
+
 
 
             if (this.isShooting){
@@ -253,6 +290,12 @@ class Tank{
 
                 canonHtml.style.animationDuration = `${this.shootingCooldown}s`; // To set up the animation, the faster the tank can shoot the faster the animation is
                 canonHtml.style.animationName = "canonAnimation";
+
+                explosionHtml.style.animationName = "";
+
+                void explosionHtml.offsetWidth; // To trigger the element so the reset is taken into account
+
+                explosionHtml.style.animationName = "explosionAnimation";
 
                 this.SHOOTING_SOUND.currentTime = 0;
                 this.SHOOTING_SOUND.play();
