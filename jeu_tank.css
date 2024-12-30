@@ -16,7 +16,6 @@ body {
 
 #map {
     display: grid;
-    background-color: #333;
 }
 
 .cell {

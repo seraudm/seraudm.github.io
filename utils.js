@@ -1,10 +1,10 @@
 function convertGameUnitToPx(coordinate){
-    return (mapSizePx.xMax - mapSizePx.xMin) * coordinate / MAP_SIZE_X;
+    return (GAME_MAP.sizePx.xMax - GAME_MAP.sizePx.xMin) * coordinate / GAME_MAP.SIZE_X;
 }
 
 
 function convertPositionGameUnitToPx(positionGameUnit){
-    positionPx = new Vector(mapSizePx.xMin + convertGameUnitToPx(positionGameUnit.x), mapSizePx.yMin + convertGameUnitToPx(positionGameUnit.y));
+    positionPx = new Vector(GAME_MAP.sizePx.xMin + convertGameUnitToPx(positionGameUnit.x), GAME_MAP.sizePx.yMin + convertGameUnitToPx(positionGameUnit.y));
     return positionPx;
 }
 
@@ -61,14 +61,10 @@ function getImData(mapID){
     let width = img.width;
     let height = img.height;
 
-    console.log(width);
-    console.log(height);
-
     canvas.width = width
     canvas.height = height;
     context.drawImage(img, 0, 0 );
 
-    document.body.appendChild(canvas);
     let myData = context.getImageData(0, 0, img.width, img.height);
     return myData;
 }
@@ -87,7 +83,7 @@ function getIndexColour(colour){
     return index;
 }
 
-function getMap(mapID){
+function getGameMapData(mapID){
     let imData = getImData(mapID);
 
     let map = [];
@@ -105,4 +101,27 @@ function getMap(mapID){
     }
 
     return map;
+}
+
+function collisionsBulletsTanks(){
+    let indexTank = 0;
+    while (indexTank<listTanks.length) {
+        const tank = listTanks[indexTank];
+        let isTankDeleted = false;
+        let indexBullet = 0;
+
+        while (indexBullet<listBullets.length && !(isTankDeleted)) {
+            const bullet = listBullets[indexBullet];
+            if ( (bullet.position.sub(tank.position)).norm() < (bullet.size + tank.size)/2){
+                tank.remove();
+                bullet.remove();
+                isTankDeleted = true;
+            }
+            indexBullet ++;
+        }
+        
+        if (!isTankDeleted){
+            indexTank ++;
+        }
+    }
 }
