@@ -53,22 +53,6 @@ function getIntersectionWithWall(currentPosition, nextPosition){
     return intersectionWithWall;
 }
 
-function getImData(mapID){
-    let canvas = document.createElement("canvas");
-    let context = canvas.getContext("2d");
-    let img = document.getElementById(mapID);
-
-    let width = img.width;
-    let height = img.height;
-
-    canvas.width = width
-    canvas.height = height;
-    context.drawImage(img, 0, 0 );
-
-    let myData = context.getImageData(0, 0, img.width, img.height);
-    return myData;
-}
-
 function getIndexColour(colour){
     let index = null;
     let distance = Infinity;
@@ -83,25 +67,6 @@ function getIndexColour(colour){
     return index;
 }
 
-function getGameMapData(mapID){
-    let imData = getImData(mapID);
-
-    let map = [];
-    for (line = 0; line < imData.height; line ++){
-        map.push([]);
-        for (column = 0; column < imData.width; column ++){
-            let colour = new Colour(
-                imData.data[(line * imData.width + column)*4],
-                imData.data[(line * imData.width + column)*4 + 1],
-                imData.data[(line * imData.width + column)*4 + 2],
-                imData.data[(line * imData.width + column)*4 + 3]
-            );
-            map[line].push(getIndexColour(colour));
-        }
-    }
-
-    return map;
-}
 
 function collisionsBulletsTanks(){
     let indexTank = 0;

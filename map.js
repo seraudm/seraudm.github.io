@@ -1,8 +1,44 @@
 class GameMap{
     static HTML = document.getElementById('map');   
 
-    constructor (mapID){
-        this.DATA = getGameMapData(mapID);
+    static getImData(mapID){
+        let canvas = document.createElement("canvas");
+        let context = canvas.getContext("2d");
+        let img = document.getElementById(mapID);
+    
+        let width = img.width;
+        let height = img.height;
+    
+        canvas.width = width
+        canvas.height = height;
+        context.drawImage(img, 0, 0 );
+    
+        let myData = context.getImageData(0, 0, img.width, img.height);
+        return myData;
+    }
+
+    static getGameMapData(mapID){
+        let imData = GameMap.getImData(mapID);
+    
+        let map = [];
+        for (let line = 0; line < imData.height; line ++){
+            map.push([]);
+            for (let column = 0; column < imData.width; column ++){
+                let colour = new Colour(
+                    imData.data[(line * imData.width + column)*4],
+                    imData.data[(line * imData.width + column)*4 + 1],
+                    imData.data[(line * imData.width + column)*4 + 2],
+                    imData.data[(line * imData.width + column)*4 + 3]
+                );
+                map[line].push(getIndexColour(colour));
+            }
+        }
+    
+        return map;
+    }
+
+    constructor (data){
+        this.DATA = data;
         this.SIZE_X = this.DATA[0].length;
         this.SIZE_Y = this.DATA.length;
         this.coordinates = null;
@@ -44,4 +80,9 @@ class GameMap{
         this.updateSize();
     }
     
+    
+    static getMapByID (mapID){
+        return new GameMap(GameMap.getGameMapData(mapID));   
+    }
+
 }

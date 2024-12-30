@@ -2,7 +2,7 @@ const GAME = document.getElementById('game');
 const EPSILON = 10**(-5);
 const CELLS_COLOURS = [new Colour(255, 255, 255, 255), new Colour(0, 0, 0, 255), new Colour(255, 0, 0, 255)];
 
-const GAME_MAP = new GameMap("map1");
+const GAME_MAP = GameMap.getMapByID("map2");
 
 
 let listKeysPressed = new Map();
@@ -21,8 +21,8 @@ let currentTime= Date.now();
 
 function main(){
     GAME_MAP.load();
-    addTank(new Tank(new Vector(2.5,2.5), Math.PI/2,"rgb(255,0,0)","z","s","q","d"," "));
-    addTank(new Tank(new Vector(2.5,5.5),0,"rgb(0,255,0)","ArrowUp","ArrowDown","ArrowLeft","ArrowRight","0"));
+    addTank(new Tank(GAME_MAP.spawns[0], 0,"rgb(255,0,0)","z","s","q","d"," "));
+    addTank(new Tank(GAME_MAP.spawns[1],0,"rgb(0,255,0)","ArrowUp","ArrowDown","ArrowLeft","ArrowRight","0"));
 }
 
 main();
