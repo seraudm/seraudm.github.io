@@ -6,6 +6,22 @@ class Bullet {
     static MAX_NUMBER_BOUNCES = 2;
     static numberBullets = 0;
 
+    static updateBulletsPosition(dt){
+        for (const bullet of listBullets){
+            bullet.updatePosition(dt);
+        }
+    }
+    
+    static drawBullets(){
+        for (const bullet of listBullets){
+            bullet.draw();
+        }
+    }
+    
+    static addBullet(bullet){
+        listBullets.push(bullet);
+    }
+
     constructor (position, angle, color, speed=Bullet.DEFAULT_SPEED, size=Bullet.DEFAULT_SIZE){
         this.created = false;
         this.angle = angle % (2 * Math.PI);
@@ -18,6 +34,7 @@ class Bullet {
         Bullet.numberBullets ++;
 
         this.BOUNCING_SOUND = new Audio("audio/rebond.mp3");
+        this.BOUNCING_SOUND.load();
     }
 
     remove(){
@@ -85,20 +102,4 @@ class Bullet {
         }
     }
 
-}
-
-function updateBulletsPosition(dt){
-    for (bullet of listBullets){
-        bullet.updatePosition(dt);
-    }
-}
-
-function drawBullets(){
-    for (bullet of listBullets){
-        bullet.draw();
-    }
-}
-
-function addBullet(bullet){
-    listBullets.push(bullet);
 }

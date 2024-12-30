@@ -11,6 +11,29 @@ class Tank{
     static NUMBER_CHECKING_POINTS = 32;
     static numberTanks = 0;
     
+    static drawTanks(){
+        for (const tank of listTanks){
+            tank.draw();
+        }
+    }
+    
+    
+    static addTank(tank){
+        listTanks.push(tank);
+    }
+    
+    static updateTanksPosition(dt){
+        for (const tank of listTanks){
+            tank.updatePosition(dt);
+        }
+    }
+    
+    static shootTanks(dt){
+        for (const tank of listTanks){
+            tank.shoot(dt);
+        }
+    }
+
     constructor (position, angle, color, moveForward, moveBackward, turnLeft, turnRight, shoot, size=Tank.DEFAULT_SIZE, shootingCooldown=Tank.DEFAULT_SHOOTING_COOLDOWN){
         
         this.keybinds = {moveForward: moveForward, moveBackward: moveBackward, turnLeft: turnLeft, turnRight: turnRight, shoot: shoot};
@@ -34,6 +57,7 @@ class Tank{
         this.wasShootingKeyReleased = true;
 
         this.SHOOTING_SOUND = new Audio("audio/tir_tank.mp3");
+        this.SHOOTING_SOUND.load();
     }
 
     shoot(dt) {
@@ -47,7 +71,7 @@ class Tank{
 
         if (listKeysPressed.get(this.keybinds.shoot) && this.cooldown == 0 && isValid(bulletPositon) && this.wasShootingKeyReleased){
             let bullet = new Bullet(bulletPositon, this.angle, this.color)
-            addBullet(bullet);
+            Bullet.addBullet(bullet);
             this.cooldown = this.shootingCooldown;
             this.isShooting = true;
             this.wasShootingKeyReleased = false;
@@ -127,46 +151,87 @@ class Tank{
         }
     }
 
+    createLeftCaterpillarHtml(){
+        const leftCaterpillarHtml = document.createElement("div");
+
+        leftCaterpillarHtml.className = "caterpillar leftCaterpillar";
+
+        return leftCaterpillarHtml;
+    }
+
+    createRightCaterpillarHtml(){
+        const rightCaterpillarHtml = document.createElement("div");
+
+        rightCaterpillarHtml.className = "caterpillar rightCaterpillar";
+
+        return rightCaterpillarHtml;
+    }
+
+    createChassisHtml(){
+        const chassisHtml = document.createElement("div");
+        
+        chassisHtml.className = "chassis";
+        chassisHtml.style.backgroundColor = this.color;
+
+        return chassisHtml;
+    }
+
+    createEndCanonHtml(){
+        const endCanonHtml = document.createElement("div");
+
+        endCanonHtml.className = "endCanon";
+
+        return endCanonHtml;
+    }
+
+    createCanonHtml(){
+        const canonHtml  = document.createElement("div");
+
+        canonHtml.className = "canon";
+
+        canonHtml.appendChild(this. createEndCanonHtml());
+
+        return canonHtml;
+    }
+
+    createTurretHtml(){
+        const turretHtml = document.createElement("div");
+
+        turretHtml.className = "turret";
+        turretHtml.style.backgroundColor = this.color;
+
+        return turretHtml;
+    }
+
+    createTankHtml(sizePx, positionPx){
+        const tankHtml = document.createElement("div");
+
+        tankHtml.className = "tank";
+        tankHtml.id = this.id;
+        tankHtml.style.left = `${positionPx.x}px`;
+        tankHtml.style.top = `${positionPx.y}px`;
+        tankHtml.style.height = `${sizePx}px`;
+        tankHtml.style.width = `${sizePx}px`;
+        tankHtml.style.transform = `translate(-50%, -50%) rotate(${this.angle}rad)`;
+
+        tankHtml.appendChild(this.createLeftCaterpillarHtml());
+        tankHtml.appendChild(this.createRightCaterpillarHtml());
+        tankHtml.appendChild(this.createChassisHtml());
+        tankHtml.appendChild(this.createCanonHtml());
+        tankHtml.appendChild(this.createTurretHtml());
+
+        return tankHtml;
+    }
+
     draw(){
         let positionPx = convertPositionGameUnitToPx(this.position);
         let sizePx= convertGameUnitToPx(this.size);
         if (!(this.created)){
             this.created = true;
-            const tankHtml = document.createElement("div");
-            const chassisHtml = document.createElement("div");
-            const canonHtml  = document.createElement("div");
-            const turretHtml = document.createElement("div");
-            const leftCaterpillarHtml = document.createElement("div");
-            const rightCaterpillarHtml = document.createElement("div");
-            const endCanonHtml = document.createElement("div");
 
-            endCanonHtml.className = "endCanon";
-            leftCaterpillarHtml.className = "caterpillar leftCaterpillar";
-            rightCaterpillarHtml.className = "caterpillar rightCaterpillar";
+            const tankHtml = this.createTankHtml(sizePx, positionPx);         
 
-            turretHtml.className = "turret";
-            chassisHtml.className = "chassis";
-            turretHtml.style.backgroundColor = this.color;
-            
-            canonHtml.className = "canon";
-            tankHtml.className = "tank";
-            tankHtml.id = this.id;
-
-            tankHtml.style.left = `${positionPx.x}px`;
-            tankHtml.style.top = `${positionPx.y}px`;
-            chassisHtml.style.backgroundColor = this.color;
-
-            tankHtml.style.transform = `translate(-50%, -50%) rotate(${this.angle}rad)`;
-            tankHtml.style.height = `${sizePx}px`;
-            tankHtml.style.width = `${sizePx}px`;
             GAME.appendChild(tankHtml);
-            tankHtml.appendChild(leftCaterpillarHtml);
-            tankHtml.appendChild(rightCaterpillarHtml);
-
-            tankHtml.appendChild(chassisHtml);
-            tankHtml.appendChild(canonHtml);
-            tankHtml.appendChild(turretHtml);
-            canonHtml.appendChild(endCanonHtml);
         } else {
             const tankHtml = document.getElementById(this.id);
 
@@ -206,29 +271,4 @@ class Tank{
         this.removed = true;
     }
 
-}
-
-
-
-function drawTanks(){
-    for (tank of listTanks){
-        tank.draw();
-    }
-}
-
-
-function addTank(tank){
-    listTanks.push(tank);
-}
-
-function updateTanksPosition(dt){
-    for (tank of listTanks){
-        tank.updatePosition(dt);
-    }
-}
-
-function shootTanks(dt){
-    for (tank of listTanks){
-        tank.shoot(dt);
-    }
 }

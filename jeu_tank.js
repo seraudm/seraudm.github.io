@@ -21,8 +21,8 @@ let currentTime= Date.now();
 
 function main(){
     GAME_MAP.load();
-    addTank(new Tank(GAME_MAP.spawns[0], 0,"rgb(255,0,0)","z","s","q","d"," "));
-    addTank(new Tank(GAME_MAP.spawns[1],0,"rgb(0,255,0)","ArrowUp","ArrowDown","ArrowLeft","ArrowRight","0"));
+    Tank.addTank(new Tank(GAME_MAP.spawns[0], 0,"rgb(255,0,0)","z","s","q","d"," "));
+    Tank.addTank(new Tank(GAME_MAP.spawns[1],0,"rgb(0,255,0)","ArrowUp","ArrowDown","ArrowLeft","ArrowRight","0"));
 }
 
 main();
@@ -32,12 +32,13 @@ function tick(){
     let dt = (nextTime - currentTime)/1000; //Delta between two ticks in s
     currentTime = nextTime;
     
-    updateTanksPosition(dt);
-    updateBulletsPosition(dt);
-    shootTanks(dt);
+    Tank.updateTanksPosition(dt);
+    Bullet.updateBulletsPosition(dt);
+    Tank.shootTanks(dt);
     collisionsBulletsTanks();
-    drawBullets();
-    drawTanks();
+    collisionsBulletsBullets();
+    Bullet.drawBullets();
+    Tank.drawTanks();
 }
 
 setInterval(tick, 10);

@@ -90,3 +90,26 @@ function collisionsBulletsTanks(){
         }
     }
 }
+
+function collisionsBulletsBullets(){
+    let indexBullet0 = 0;
+    while (indexBullet0<listBullets.length) {
+        const bullet0 = listBullets[indexBullet0];
+        let isBulletDeleted = false;
+        let indexBullet1 = indexBullet0 + 1;
+
+        while (indexBullet1<listBullets.length) {
+            const bullet1 = listBullets[indexBullet1];
+            if ( (bullet1.position.sub(bullet0.position)).norm() < (bullet1.size + bullet0.size)/2){
+                bullet0.remove();
+                bullet1.remove();
+                isBulletDeleted = true;
+            }
+            indexBullet1 ++;
+        }
+        
+        if (!isBulletDeleted){
+            indexBullet0 ++;
+        }
+    }
+}
