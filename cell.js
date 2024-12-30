@@ -6,7 +6,7 @@ class Cell{
     }
 
     isWall(){
-        return (0 <= this.line && 0 <= this.column && this.line < MAP_SIZE_Y && this.column < MAP_SIZE_X && MAP[this.line][this.column]);
+        return (0 <= this.line && 0 <= this.column && this.line < MAP_SIZE_Y && this.column < MAP_SIZE_X && MAP[this.line][this.column] === 1);
     }
 
     getTopSegment(){

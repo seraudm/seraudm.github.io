@@ -53,10 +53,10 @@ function getIntersectionWithWall(currentPosition, nextPosition){
     return intersectionWithWall;
 }
 
-function getMap(imageID){
+function getImData(mapID){
     let canvas = document.createElement("canvas");
     let context = canvas.getContext("2d");
-    let img = document.getElementById(imageID);
+    let img = document.getElementById(mapID);
 
     let width = img.width;
     let height = img.height;
@@ -70,5 +70,39 @@ function getMap(imageID){
 
     document.body.appendChild(canvas);
     let myData = context.getImageData(0, 0, img.width, img.height);
-    console.log(myData);
+    return myData;
+}
+
+function getIndexColour(colour){
+    let index = null;
+    let distance = Infinity;
+    for (let i=0; i<CELLS_COLOURS.length; i++){
+        let currentDistance = colour.distance(CELLS_COLOURS[i]);
+        if (currentDistance < distance){
+            index = i;
+            distance = currentDistance;
+        }
+    }
+
+    return index;
+}
+
+function getMap(mapID){
+    let imData = getImData(mapID);
+
+    let map = [];
+    for (line = 0; line < imData.height; line ++){
+        map.push([]);
+        for (column = 0; column < imData.width; column ++){
+            let colour = new Colour(
+                imData.data[(line * imData.width + column)*4],
+                imData.data[(line * imData.width + column)*4 + 1],
+                imData.data[(line * imData.width + column)*4 + 2],
+                imData.data[(line * imData.width + column)*4 + 3]
+            );
+            map[line].push(getIndexColour(colour));
+        }
+    }
+
+    return map;
 }
