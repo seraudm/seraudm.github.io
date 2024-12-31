@@ -19,9 +19,7 @@ body {
 }
 
 .cell {
-    background-color: #fff;
-    border: 0px solid #ccc;
-    transition: background-color 0.3s ease;
+    background-color: rgb(255, 255, 255);
 }
 
 .tank {

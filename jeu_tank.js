@@ -1,12 +1,14 @@
 const GAME = document.getElementById('game');
 const EPSILON = 10**(-5);
-const CELLS_COLOURS = [new Colour(255, 255, 255, 255), new Colour(0, 0, 0, 255), new Colour(255, 0, 0, 255)];
+const CELLS_COLOURS = [new Colour(255, 255, 255, 255), new Colour(0, 0, 0, 255), new Colour(255, 0, 0, 255), new Colour(0, 0, 255, 255)];
 
-const GAME_MAP = GameMap.getMapByID("map2");
+const GAME_MAP = GameMap.getMapByID("lake");
 
-const MUSIC = new Audio("audio/musique.mp3");
+const MUSIC = new Audio();
 MUSIC.loop = true;
-MUSIC.play();
+MUSIC.addEventListener("loadeddata", () => MUSIC.play());
+MUSIC.src = "audio/musique.mp3";
+MUSIC.load();
 
 
 let listKeysPressed = new Map();
@@ -26,7 +28,7 @@ let currentTime= Date.now();
 function main(){
     GAME_MAP.load();
     Tank.addTank(new Tank(GAME_MAP.spawns[0], 0,"rgb(255,0,0)","z","s","q","d"," "));
-    Tank.addTank(new Tank(GAME_MAP.spawns[1],0,"rgb(0,255,0)","ArrowUp","ArrowDown","ArrowLeft","ArrowRight","0"));
+    Tank.addTank(new Tank(GAME_MAP.spawns[1],0,"rgb(255, 238, 0)","ArrowUp","ArrowDown","ArrowLeft","ArrowRight","0"));
 }
 
 main();

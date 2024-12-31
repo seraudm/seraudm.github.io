@@ -5,6 +5,7 @@ class Bullet {
     static DEFAULT_SIZE = 0.2; // Unit: GameUnit
     static MAX_NUMBER_BOUNCES = 2;
     static numberBullets = 0;
+    static OBSTACLE_CELLS = [1]
 
     static updateBulletsPosition(dt){
         for (const bullet of listBullets){
@@ -51,7 +52,7 @@ class Bullet {
         nextPosition.x += Math.sin(this.angle) * this.speed *dt;
         nextPosition.y -= Math.cos(this.angle) * this.speed *dt;
 
-        let intersectionWithWall = getIntersectionWithWall(this.position, nextPosition);
+        let intersectionWithWall = getIntersectionWithWall(this.position, nextPosition, Bullet.OBSTACLE_CELLS);
 
         if (intersectionWithWall == null) {
             this.position = nextPosition; // The bullet doesn't hit any wall

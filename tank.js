@@ -10,6 +10,7 @@ class Tank{
     static DEFAULT_SIZE = 0.9; //Unit: GameUnit CAREFULL THIS THE DIAMETER
     static NUMBER_CHECKING_POINTS = 32;
     static numberTanks = 0;
+    static OBSTACLE_CELLS = [1,3] // To know wich cells are considered as obstacle 
     
     static drawTanks(){
         for (const tank of listTanks){
@@ -69,7 +70,7 @@ class Tank{
             this.wasShootingKeyReleased = true;
         }
 
-        if (listKeysPressed.get(this.keybinds.shoot) && this.cooldown == 0 && isValid(bulletPositon) && this.wasShootingKeyReleased){
+        if (listKeysPressed.get(this.keybinds.shoot) && this.cooldown == 0 && isValid(bulletPositon, Bullet.OBSTACLE_CELLS) && this.wasShootingKeyReleased){
             let bullet = new Bullet(bulletPositon, this.angle, this.color)
             Bullet.addBullet(bullet);
             this.cooldown = this.shootingCooldown;
@@ -106,7 +107,7 @@ class Tank{
             currentCheckingPoint.y += Math.cos(i * 2*Math.PI/Tank.NUMBER_CHECKING_POINTS) * this.size/2;
             currentCheckingPoint.x += Math.sin(i * 2*Math.PI/Tank.NUMBER_CHECKING_POINTS) * this.size/2;
 
-            let intersectionWithWall = getIntersectionWithWall(currentCheckingPoint, nextCheckingPoint);
+            let intersectionWithWall = getIntersectionWithWall(currentCheckingPoint, nextCheckingPoint, Tank.OBSTACLE_CELLS);
 
             if (intersectionWithWall != null){
                 // Update the orientation, if it's different from the previous one, the value is "both"

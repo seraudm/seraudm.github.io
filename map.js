@@ -69,9 +69,11 @@ class GameMap{
                 const cell = document.createElement("div");
                 cell.classList.add("cell");
                 if (this.DATA[i][j]===1){
-                    cell.style.backgroundColor = "#333";
+                    cell.style.backgroundColor = "rgb(51, 51, 51)";
                 } else if (this.DATA[i][j] === 2){
                     this.spawns.push(new Vector(j+0.5, i+0.5));
+                } else if (this.DATA[i][j] === 3){
+                    cell.style.backgroundColor = "rgb(0, 166, 255)";
                 }
                 GameMap.HTML.appendChild(cell);
               }

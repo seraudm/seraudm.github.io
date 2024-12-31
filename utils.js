@@ -11,14 +11,14 @@ function convertPositionGameUnitToPx(positionGameUnit){
 
 
 
-function isValid(position){
+function isValid(position, obstacleCells){
     let wall = new Cell(position);
-    return (!wall.isWall());
+    return (!wall.isObstacle(obstacleCells));
 }
 
 
 // Return the intersection with the first wall, null if there is no wall in the trajectory
-function getIntersectionWithWall(currentPosition, nextPosition){
+function getIntersectionWithWall(currentPosition, nextPosition, obstacleCells){
     let currentWall = new Cell(currentPosition);
     let lastWall = new Cell(nextPosition);
     let trajectory = new Segment(currentPosition, nextPosition);
@@ -44,7 +44,7 @@ function getIntersectionWithWall(currentPosition, nextPosition){
             ignore = "top";
         }
 
-        if (currentWall.isWall()){
+        if (currentWall.isObstacle(obstacleCells)){
             intersectionWithWall = intersectionPoint;
         }        
 

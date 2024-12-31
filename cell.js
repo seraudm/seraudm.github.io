@@ -5,8 +5,14 @@ class Cell{
         this.column = Math.floor(v.x);
     }
 
-    isWall(){
-        return (0 <= this.line && 0 <= this.column && this.line < GAME_MAP.SIZE_Y && this.column < GAME_MAP.SIZE_X && GAME_MAP.DATA[this.line][this.column] === 1);
+    isObstacle(obstacleCells){
+        let isObstacle = false
+        if (0 <= this.line && 0 <= this.column && this.line < GAME_MAP.SIZE_Y && this.column < GAME_MAP.SIZE_X){
+            for (const obstacle of obstacleCells){
+                isObstacle = isObstacle || GAME_MAP.DATA[this.line][this.column] === obstacle;
+            }
+        }
+        return isObstacle;
     }
 
     getTopSegment(){
