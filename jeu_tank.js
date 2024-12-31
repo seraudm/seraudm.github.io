@@ -6,8 +6,8 @@ const GAME_MAP = GameMap.getMapByID("lake");
 
 const MUSIC = new Audio();
 MUSIC.loop = true;
-MUSIC.addEventListener("loadeddata", () => MUSIC.play());
 MUSIC.src = "audio/musique.mp3";
+MUSIC.addEventListener("loadeddata", () => MUSIC.play());
 MUSIC.load();
 
 
