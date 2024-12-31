@@ -12,9 +12,14 @@ document.addEventListener('DOMContentLoaded', () => {
     MUSIC.loop = true;
     MUSIC.src = "audio/musique.mp3";
     MUSIC.autoplay = true;
-    MUSIC.addEventListener("loadeddata", () => MUSIC.play());
-    MUSIC.load();
 
+    function onUserInteraction (){
+        document.removeEventListener("keypress", onUserInteraction);
+        MUSIC.addEventListener("loadeddata", () => MUSIC.play());
+        MUSIC.load();
+    }
+    document.addEventListener("keypress", onUserInteraction );
+    
 
     listKeysPressed.set("z",false);
     listKeysPressed.set("q",false);
