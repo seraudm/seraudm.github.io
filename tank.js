@@ -167,15 +167,6 @@ class Tank{
         return rightCaterpillarHtml;
     }
 
-    createChassisHtml(){
-        const chassisHtml = document.createElement("div");
-        
-        chassisHtml.className = "chassis";
-        chassisHtml.style.backgroundColor = this.color;
-
-        return chassisHtml;
-    }
-
     createEndCanonHtml(){
         const endCanonHtml = document.createElement("div");
 
@@ -236,6 +227,17 @@ class Tank{
         return turretHtml;
     }
 
+    createChassisHtml(sizePx){
+        const chassisHtml = document.createElement("div");
+        
+        chassisHtml.className = "chassis";
+        chassisHtml.style.backgroundColor = this.color;
+
+        chassisHtml.appendChild(this.createCanonHtml(sizePx));
+        chassisHtml.appendChild(this.createTurretHtml());
+
+        return chassisHtml;
+    }
 
 
     createTankHtml(sizePx, positionPx){
@@ -251,9 +253,7 @@ class Tank{
 
         tankHtml.appendChild(this.createLeftCaterpillarHtml());
         tankHtml.appendChild(this.createRightCaterpillarHtml());
-        tankHtml.appendChild(this.createChassisHtml());
-        tankHtml.appendChild(this.createCanonHtml(sizePx));
-        tankHtml.appendChild(this.createTurretHtml());
+        tankHtml.appendChild(this.createChassisHtml(sizePx));
 
         return tankHtml;
     }

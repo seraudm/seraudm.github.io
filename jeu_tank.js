@@ -4,6 +4,10 @@ const CELLS_COLOURS = [new Colour(255, 255, 255, 255), new Colour(0, 0, 0, 255),
 
 const GAME_MAP = GameMap.getMapByID("map2");
 
+const MUSIC = new Audio("audio/musique.mp3");
+MUSIC.loop = true;
+MUSIC.play();
+
 
 let listKeysPressed = new Map();
 listKeysPressed.set("z",false);
