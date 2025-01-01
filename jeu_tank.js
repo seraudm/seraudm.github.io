@@ -2,7 +2,7 @@ const GAME = document.getElementById('game');
 const EPSILON = 10**(-5);
 const CELLS_COLOURS = [new Colour(255, 255, 255, 255), new Colour(0, 0, 0, 255), new Colour(255, 0, 0, 255), new Colour(0, 0, 255, 255)];
 
-const GAME_MAP = GameMap.getMapByID("lake");
+const GAME_MAP = GameMap.getMapByID("labyrinth");
 
 const MUSIC = new Audio();
 let listKeysPressed = new Map();
@@ -10,14 +10,15 @@ let listKeysPressed = new Map();
 document.addEventListener('DOMContentLoaded', () => {
 
     MUSIC.loop = true;
-    MUSIC.src = "audio/musique.mp3";
     MUSIC.autoplay = true;
-
+    
     function onUserInteraction (){
         document.removeEventListener("keypress", onUserInteraction);
         MUSIC.addEventListener("loadeddata", () => MUSIC.play());
+        MUSIC.src = "audio/musique.mp3";
         MUSIC.load();
     }
+    
     document.addEventListener("keypress", onUserInteraction );
     
 
@@ -31,13 +32,19 @@ document.addEventListener('DOMContentLoaded', () => {
     listKeysPressed.set("ArrowDown",false);
     listKeysPressed.set("ArrowUp",false);
     listKeysPressed.set("0",false);
+    listKeysPressed.set("i",false);
+    listKeysPressed.set("j",false);
+    listKeysPressed.set("k",false);
+    listKeysPressed.set("l",false);
+    listKeysPressed.set(":",false);
     
     let currentTime= Date.now();
 
     function main(){
         GAME_MAP.load();
         Tank.addTank(new Tank(GAME_MAP.spawns[0], 0,"rgb(255,0,0)","z","s","q","d"," "));
-        Tank.addTank(new Tank(GAME_MAP.spawns[1],0,"rgb(255, 238, 0)","ArrowUp","ArrowDown","ArrowLeft","ArrowRight","0"));
+        Tank.addTank(new Tank(GAME_MAP.spawns[1],0,"rgb(255, 238, 0)","i","k","j","l",":"));
+        Tank.addTank(new Tank(GAME_MAP.spawns[2],0,"rgb(0, 136, 255)","ArrowUp","ArrowDown","ArrowLeft","ArrowRight","0"));
     }
 
     main();
