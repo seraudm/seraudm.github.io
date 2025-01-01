@@ -1,20 +1,10 @@
-const startButton = document.getElementById('startButton');
-const playerNames = document.getElementById('playerNames');
-const controlSettings = document.getElementById('controlSettings');
-const nextToControls = document.getElementById('nextToControls');
-const startGame = document.getElementById('startGame');
-
 document.addEventListener('DOMContentLoaded', () => {
 
-    controlSettings.style.display = 'none';
-    const gameConfig = {
-        player1Name: document.getElementById('player1Name').value.trim(),
-        player2Name: document.getElementById('player2Name').value.trim(),
-        player1Keys: player1Keys,
-        player2Keys: player2Keys
-    };
-    localStorage.setItem('gameConfig', JSON.stringify(gameConfig));
-    window.location.href = 'jeu.html'; 
+    const startButton = document.getElementById('startButton');
+    const playerNames = document.getElementById('playerNames');
+    const controlSettings = document.getElementById('controlSettings');
+    const nextToControls = document.getElementById('nextToControls');
+    const startGame = document.getElementById('startGame');
     
     let player1Keys = {};
     let player2Keys = {};
