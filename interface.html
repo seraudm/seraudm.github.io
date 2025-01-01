@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jeu de Tank</title>
+    <link href="interface.css" rel="stylesheet">
+</head>
+<body>
+    <script type="text/javascript" src="interface.js"></script>
+    <button id="startButton">Start</button>
+
+    <div id="playerNames" style="display: none;">
+        <h2>Entrez vos noms :</h2>
+        <div>
+            <label for="player1Name">Joueur 1 :</label>
+            <input type="text" id="player1Name">
+        </div>
+        <div>
+            <label for="player2Name">Joueur 2 :</label>
+            <input type="text" id="player2Name">
+        </div>
+        <button id="nextToControls">Continuer</button>
+    </div>
+    
+    <div id="controlSettings" style="display: none;">
+        <h2>Personnalisez vos contrôles :</h2>
+        <div id="player1Controls">
+            <h3>Joueur 1 :</h3>
+            <div><label>Avancer : </label><input type="text" maxlength="1" class="key-input"></div>
+            <div><label>Reculer : </label><input type="text" maxlength="1" class="key-input"></div>
+            <div><label>Droite : </label><input type="text" maxlength="1" class="key-input"></div>
+            <div><label>Gauche : </label><input type="text" maxlength="1" class="key-input"></div>
+            <div><label>Tirer : </label><input type="text" maxlength="1" class="key-input"></div>
+        </div>
+        <div id="player2Controls">
+            <h3>Joueur 2 :</h3>
+            <div><label>Avancer : </label><input type="text" maxlength="1" class="key-input"></div>
+            <div><label>Reculer : </label><input type="text" maxlength="1" class="key-input"></div>
+            <div><label>Droite : </label><input type="text" maxlength="1" class="key-input"></div>
+            <div><label>Gauche : </label><input type="text" maxlength="1" class="key-input"></div>
+            <div><label>Tirer : </label><input type="text" maxlength="1" class="key-input"></div>
+        </div>
+        <button id="startGame">Lancer le jeu</button>
+    </div>
+    
+</body>
+</html>
