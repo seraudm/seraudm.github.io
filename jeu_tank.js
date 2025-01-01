@@ -13,6 +13,7 @@ document.addEventListener('DOMContentLoaded', () => {
     MUSIC.autoplay = true;
     
     function onUserInteraction (){
+        console.log("yoyo");
         document.removeEventListener("keypress", onUserInteraction);
         MUSIC.addEventListener("loadeddata", () => MUSIC.play());
         MUSIC.src = "audio/musique.mp3";
