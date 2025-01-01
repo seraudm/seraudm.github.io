@@ -9,6 +9,16 @@ let listKeysPressed = new Map();
 
 document.addEventListener('DOMContentLoaded', () => {
 
+    const gameConfig = JSON.parse(localStorage.getItem('gameConfig'));
+
+    if (!gameConfig) {
+        alert('Configuration manquante. Veuillez passer par l’interface.');
+        window.location.href = 'interface.html'; // Redirige vers l'interface si aucune config
+        return;
+    }
+
+    console.log('Configuration du jeu :', gameConfig);
+    
     MUSIC.loop = true;
     MUSIC.autoplay = true;
     
