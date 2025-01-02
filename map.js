@@ -1,5 +1,5 @@
 class GameMap{
-    static HTML = document.getElementById('map');   
+    static HTML = document.getElementById('gameMap');   
 
     static getImData(mapID){
         let canvas = document.createElement("canvas");

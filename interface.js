@@ -12,8 +12,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const PLAYER_NAMES = document.getElementById('playerNames');
     const MAP_SELECTION = document.getElementById('mapSelection');
     const CONTROL_SETTINGS = document.getElementById('controlSettings');
-    const NEXT_TO_CONTROLS = document.getElementById('nextToControls');
-    const START_GAME = document.getElementById('startGame');
+    const NEXT_TO_CONTROLS_BUTTON = document.getElementById('nextToControls');
+    const NEXT_TO_MAPS_BUTTON = document.getElementById('nextToMaps');
+    const START_GAME_BUTTON = document.getElementById('startGame');
     const KEYS_NAMES = ['moveForward', 'moveBackward', 'turnRight', 'turnLeft', 'shoot'];
     const MUSIC = new Audio();
 
@@ -72,18 +73,6 @@ document.addEventListener('DOMContentLoaded', () => {
         //To clear the map if there are elements
         Tank.clearTanks();
         Bullet.clearBullets();
-        let listTanksHTML = GAME.getElementsByTagName("tank");
-        let listBulletsHTML = GAME.getElementsByTagName("bullet");
-        for (const tankHTML of listTanksHTML){
-            tankHTML.remove();
-        }
-        for (const bulletHTML of listBulletsHTML){
-            bulletHTML.remove();
-        }
-
-        GAME_MAP.load();
-        GAME.style.visibility = "visible";
-        updateKeysMap();
 
         Tank.addTank(new Tank(GAME_MAP.spawns[0], 0,"rgb(255,0,0)", playersKeys[0]));
         Tank.addTank(new Tank(GAME_MAP.spawns[1],0,"rgb(0, 136, 255)", playersKeys[1]));
@@ -120,7 +109,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     PLAY_AGAIN_BUTTON.addEventListener('click', playAgain);
 
-    NEXT_TO_CONTROLS.addEventListener('click', () => {
+    NEXT_TO_CONTROLS_BUTTON.addEventListener('click', () => {
         if (player1Name == "" || player2Name == "") {
             alert("Veuillez entrer un nom pour chaque joueur !");
             return;
@@ -159,7 +148,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    START_GAME.addEventListener('click', function(){
+    NEXT_TO_MAPS_BUTTON.addEventListener('click', function(){
         const player1Controls = document.getElementById('player1Controls');
         const player1Inputs = player1Controls.querySelectorAll('.key-input');
         const player2Controls = document.getElementById('player2Controls');
@@ -208,12 +197,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
         CONTROL_SETTINGS.style.display = 'none';
         MAP_SELECTION.style.display = 'flex';
-
-        initGame();
     });
+    
     document.querySelectorAll('.map-image').forEach(function(map) {
         map.addEventListener('click', function() {
-            selectedMap = this.getAttribute('data-map');
+            selectedMap = this.getAttribute("id");
             document.querySelectorAll('.map img').forEach(function(img) {
                 img.style.border = '2px solid transparent';
             });
@@ -221,7 +209,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    START_WITH_MAP.addEventListener('click', function() {
+    START_GAME_BUTTON.addEventListener('click', function() {
         if (!selectedMap) {
             alert("Veuillez sélectionner une carte !");
             return;
@@ -232,5 +220,12 @@ document.addEventListener('DOMContentLoaded', () => {
         console.log("Touches joueur 2 :", playersKeys[1]);
 
         MAP_SELECTION.style.display = 'none';
+
+        GAME_MAP = new GameMap(GameMap.getGameMapData(selectedMap));
+        console.log(GAME_MAP);
+        GAME_MAP.load();
+        GAME.style.visibility = "visible";
+        updateKeysMap();
+        initGame();
     });
 });
