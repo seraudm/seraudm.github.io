@@ -8,6 +8,7 @@ const GAME = document.getElementById('game');
 document.addEventListener('DOMContentLoaded', () => {
 
     const START_BUTTON = document.getElementById('startButton');
+    const PLAY_AGAIN_BUTTON = document.getElementById('playAgain');
     const PLAYER_NAMES = document.getElementById('playerNames');
     const CONTROL_SETTINGS = document.getElementById('controlSettings');
     const NEXT_TO_CONTROLS = document.getElementById('nextToControls');
@@ -19,8 +20,15 @@ document.addEventListener('DOMContentLoaded', () => {
     MUSIC.autoplay = true;
     
     let currentTime;
+    let idTick;
 
     let playersKeys = [{},{}]
+
+    function endGame(){
+        clearInterval(idTick);
+        PLAY_AGAIN_BUTTON.style.display = "block";
+
+    }
 
 
     function tick(){
@@ -35,8 +43,16 @@ document.addEventListener('DOMContentLoaded', () => {
         collisionsBulletsBullets();
         Bullet.drawBullets();
         Tank.drawTanks();
+
+        if (listTanks.length === 1){
+            endGame();
+        }
     }    
     
+    function playAgain(){
+        PLAY_AGAIN_BUTTON.style.display = "none";
+        initGame();
+    }
     
     function resizeMap(){
         GAME_MAP.updateSize();
@@ -50,7 +66,20 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
     
-    function main(){
+    function initGame(){
+
+        //To clear the map if there are elements
+        Tank.clearTanks();
+        Bullet.clearBullets();
+        let listTanksHTML = GAME.getElementsByTagName("tank");
+        let listBulletsHTML = GAME.getElementsByTagName("bullet");
+        for (const tankHTML of listTanksHTML){
+            tankHTML.remove();
+        }
+        for (const bulletHTML of listBulletsHTML){
+            bulletHTML.remove();
+        }
+
         GAME_MAP.load();
         GAME.style.visibility = "visible";
         updateKeysMap();
@@ -74,16 +103,21 @@ document.addEventListener('DOMContentLoaded', () => {
                 listKeysPressed.set(e.key, false);
             }
         });
-        setInterval(tick, 10);
+
+        idTick = setInterval(tick, 10);
     }
     
     START_BUTTON.addEventListener('click', () => {
         START_BUTTON.style.display = 'none';
         PLAYER_NAMES.style.display = 'block';
+        
+        // Launch MUSIC
         MUSIC.addEventListener("loadeddata", () => MUSIC.play());
         MUSIC.src = "../audio/musique.mp3";
         MUSIC.load();
     });
+
+    PLAY_AGAIN_BUTTON.addEventListener('click', playAgain);
 
     NEXT_TO_CONTROLS.addEventListener('click', () => {
         if (player1Name == "" || player2Name == "") {
@@ -172,9 +206,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         CONTROL_SETTINGS.style.display = 'none';
-        console.log("Contrôles Joueur 1 : ", playersKeys[0]);
-        console.log("Contrôles Joueur 2 : ", playersKeys[0]);
-        console.log("Le jeu commence !");
-        main();
+
+        initGame();
     });
 });

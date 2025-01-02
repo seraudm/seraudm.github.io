@@ -28,6 +28,10 @@
 
     <button id="startButton">Start</button>
 
+
+    <button id="playAgain">Play again</button>
+
+
     <div id="playerNames" style="display: none;">
         <h2>Entrez vos noms :</h2>
         <div>
@@ -66,9 +70,12 @@
     <div id="game">
         <div id="map"></div>
     </div>
-    <!-- Put the map images under -->
-    <img hidden id="labyrinth" src="maps/labyrinth.bmp"/>
-    <img hidden id="lake" src="maps/lake.bmp"/>
+
+    <div hidden id="listMaps">
+        <!-- Put the map images under -->
+        <img id="labyrinth" src="maps/labyrinth.bmp"/>
+        <img id="lake" src="maps/lake.bmp"/>
+     </div>
 
 
 </body>

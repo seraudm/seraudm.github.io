@@ -35,6 +35,12 @@ class Tank{
         }
     }
 
+    static clearTanks(){
+        for (const tank of listTanks){
+            tank.remove();
+        }
+    }
+
     constructor (position, angle, color, keybinds, size=Tank.DEFAULT_SIZE, shootingCooldown=Tank.DEFAULT_SHOOTING_COOLDOWN){
         
         this.keybinds = keybinds;

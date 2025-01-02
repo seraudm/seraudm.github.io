@@ -23,6 +23,12 @@ class Bullet {
         listBullets.push(bullet);
     }
 
+    static clearBullets(){
+        for (const bullet of listBullets){
+            bullet.remove();
+        }
+    }
+
     constructor (position, angle, color, speed=Bullet.DEFAULT_SPEED, size=Bullet.DEFAULT_SIZE){
         this.created = false;
         this.angle = angle % (2 * Math.PI);
