@@ -1,6 +1,6 @@
 const EPSILON = 10**(-5);
 const CELLS_COLOURS = [new Colour(255, 255, 255, 255), new Colour(0, 0, 0, 255), new Colour(255, 0, 0, 255), new Colour(0, 0, 255, 255)];
-const GAME_MAP = GameMap.getMapByID("labyrinth");
+let GAME_MAP;
 let listKeysPressed = new Map();  
 const GAME = document.getElementById('game');
 
