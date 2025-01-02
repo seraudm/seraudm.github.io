@@ -120,18 +120,18 @@ body {
     height: 100%;
     background-color: rgba(0, 0, 0, 0.7); /* Fond semi-transparent */
     display: flex;
-    justify-content: space-around;
+    justify-content: center;
     align-items: center;
     flex-direction: column;
     z-index: 1000; /* Superposition */
 }
 
 #map-container {
-    height: 70%;
     width: 100%;
     display: flex;
-    justify-content: space-around;
+    justify-content: center;
     align-items: center;
+    flex-wrap: wrap;
 }
 
 .map {
