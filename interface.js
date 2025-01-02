@@ -10,6 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const START_BUTTON = document.getElementById('startButton');
     const PLAY_AGAIN_BUTTON = document.getElementById('playAgain');
     const PLAYER_NAMES = document.getElementById('playerNames');
+    const MAP_SELECTION = document.getElementById('mapSelection');
     const CONTROL_SETTINGS = document.getElementById('controlSettings');
     const NEXT_TO_CONTROLS = document.getElementById('nextToControls');
     const START_GAME = document.getElementById('startGame');
@@ -206,7 +207,30 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         CONTROL_SETTINGS.style.display = 'none';
+        MAP_SELECTION.style.display = 'flex';
 
         initGame();
+    });
+    document.querySelectorAll('.map-image').forEach(function(map) {
+        map.addEventListener('click', function() {
+            selectedMap = this.getAttribute('data-map');
+            document.querySelectorAll('.map img').forEach(function(img) {
+                img.style.border = '2px solid transparent';
+            });
+            this.style.border = '2px solid #ff0000'; // Indique la sélection
+        });
+    });
+
+    START_WITH_MAP.addEventListener('click', function() {
+        if (!selectedMap) {
+            alert("Veuillez sélectionner une carte !");
+            return;
+        }
+
+        console.log("Carte sélectionnée :", selectedMap);
+        console.log("Touches joueur 1 :", playersKeys[0]);
+        console.log("Touches joueur 2 :", playersKeys[1]);
+
+        MAP_SELECTION.style.display = 'none';
     });
 });
