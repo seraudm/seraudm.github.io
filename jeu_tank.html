@@ -7,7 +7,9 @@
     
     <link rel="icon" type="image/png" href="image/logo.png"/>
     
-    <link rel="stylesheet" type="text/css" href="./jeu_tank.css">
+    <link rel="stylesheet" type="text/css" href="interface.css">
+    <link rel="stylesheet" type="text/css" href="jeu_tank.css">
+
 
     <script type="text/javascript" src="colour.js" defer></script>
     <script type="text/javascript" src="vector.js" defer></script>
@@ -17,12 +19,49 @@
     <script type="text/javascript" src="map.js" defer></script>
     <script type="text/javascript" src="bullet.js" defer></script>
     <script type="text/javascript" src="tank.js" defer></script>
-    <script type="text/javascript" src="jeu_tank.js" defer></script>
+    <script type="text/javascript" src="interface.js" defer></script>
     <script type="text/javascript" src="test.js" defer></script>
     
     
 </head>
 <body>
+
+    <button id="startButton">Start</button>
+
+    <div id="playerNames" style="display: none;">
+        <h2>Entrez vos noms :</h2>
+        <div>
+            <label for="player1Name">Joueur 1 :</label>
+            <input type="text" id="player1Name">
+        </div>
+        <div>
+            <label for="player2Name">Joueur 2 :</label>
+            <input type="text" id="player2Name">
+        </div>
+        <button id="nextToControls">Continuer</button>
+    </div>
+    
+    <div id="controlSettings" style="display: none;">
+        <h2>Personnalisez vos contrôles :</h2>
+        <div id="player1Controls">
+            <h3>Joueur 1 :</h3>
+            <div><label>Avancer : </label><input type="text" maxlength="1" class="key-input"></div>
+            <div><label>Reculer : </label><input type="text" maxlength="1" class="key-input"></div>
+            <div><label>Droite : </label><input type="text" maxlength="1" class="key-input"></div>
+            <div><label>Gauche : </label><input type="text" maxlength="1" class="key-input"></div>
+            <div><label>Tirer : </label><input type="text" maxlength="1" class="key-input"></div>
+        </div>
+        <div id="player2Controls">
+            <h3>Joueur 2 :</h3>
+            <div><label>Avancer : </label><input type="text" maxlength="1" class="key-input"></div>
+            <div><label>Reculer : </label><input type="text" maxlength="1" class="key-input"></div>
+            <div><label>Droite : </label><input type="text" maxlength="1" class="key-input"></div>
+            <div><label>Gauche : </label><input type="text" maxlength="1" class="key-input"></div>
+            <div><label>Tirer : </label><input type="text" maxlength="1" class="key-input"></div>
+        </div>
+        <button id="startGame">Lancer le jeu</button>
+    </div>
+
     <div id="game">
         <div id="map"></div>
     </div>

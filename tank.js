@@ -35,9 +35,9 @@ class Tank{
         }
     }
 
-    constructor (position, angle, color, moveForward, moveBackward, turnLeft, turnRight, shoot, size=Tank.DEFAULT_SIZE, shootingCooldown=Tank.DEFAULT_SHOOTING_COOLDOWN){
+    constructor (position, angle, color, keybinds, size=Tank.DEFAULT_SIZE, shootingCooldown=Tank.DEFAULT_SHOOTING_COOLDOWN){
         
-        this.keybinds = {moveForward: moveForward, moveBackward: moveBackward, turnLeft: turnLeft, turnRight: turnRight, shoot: shoot};
+        this.keybinds = keybinds;
         this.created = false;
         this.angle = angle;
         this.position = position;
