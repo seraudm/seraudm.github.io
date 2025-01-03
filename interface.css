@@ -44,7 +44,7 @@ body {
     border-radius: 10px;
     display: flex;
     align-items: center;
-    justify-content: space-between   ;
+    justify-content: space-around   ;
     flex-direction: column;
     min-width: 70%;
     min-height: 40%;
@@ -79,7 +79,7 @@ body {
     z-index: 1000; /* Superposition */
 }
 
-#map-container {
+#map-container, #numberPlayers-container {
     width: 100%;
     display: flex;
     justify-content: center;
@@ -90,11 +90,12 @@ body {
 .map {
     text-align: center;
     cursor: pointer;
+    margin-left: 20px;
+    margin-right: 20px;
 }
 
 .map img {
-    height: 35%;
-    min-height: 200px;
+    height: 200px;
     border: 2px solid transparent;
     transition: border 0.3s;
     image-rendering: pixelated;
