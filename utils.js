@@ -113,3 +113,10 @@ function collisionsBulletsBullets(){
         }
     }
 }
+
+function shuffleArray (array){
+    for (var i = array.length - 1; i > 0; i--) {
+        var rand = Math.floor(Math.random() * array.length);
+        [array[i], array[rand]] = [array[rand], array[i]]
+    }
+}

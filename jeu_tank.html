@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -26,52 +26,78 @@
 </head>
 <body>
 
-    <button id="startButton">Start</button>
+    <button id="startButton" class="button">Start</button>
 
 
-    <button id="playAgain">Play again</button>
-
-
+    <div id="numberPlayers" style="display: none;">
+        <h2>Choisissez le nombre de joueurs :</h2>
+        <button class="button nextToPlayerName" value="2">2</button>
+        <button class="button nextToPlayerName" value="3">3</button>
+        <button class="button nextToPlayerName" value="4">4</button>
+    </div>    
+    
     <div id="playerNames" style="display: none;">
         <h2>Entrez vos noms :</h2>
         <div>
             <label for="player1Name">Joueur 1 :</label>
-            <input type="text" id="player1Name">
+            <input type="text" id="player1NameInput" value="Clemcloum" class="name-input">
         </div>
         <div>
             <label for="player2Name">Joueur 2 :</label>
-            <input type="text" id="player2Name">
+            <input type="text" id="player2NameInput" value="LaMenace" class="name-input">
         </div>
-        <button id="nextToControls">Continuer</button>
+        <div id="player3Name" style="display: none;">
+            <label for="player3Name">Joueur 3 :</label>
+            <input type="text" id="player3NameInput" value="LaReb" class="name-input">
+        </div>
+        <div id="player4Name" style="display: none;">
+            <label for="player4Name">Joueur 4 :</label>
+            <input type="text" id="player4NameInput" value="Mawel" class="name-input">
+        </div>
+        <button id="nextToControls" class="button">Continuer</button>
     </div>
     
     <div id="controlSettings" style="display: none;">
         <h2>Personnalisez vos contrôles :</h2>
-        <div id="player1Controls">
-            <h3>Joueur 1 :</h3>
-            <div><label>Avancer : </label><input type="text" maxlength="1" value="Z" class="key-input"></div>
-            <div><label>Reculer : </label><input type="text" maxlength="1" value="S" class="key-input"></div>
-            <div><label>Droite : </label><input type="text" maxlength="1" value="D" class="key-input"></div>
-            <div><label>Gauche : </label><input type="text" maxlength="1" value="Q" class="key-input"></div>
-            <div><label>Tirer : </label><input type="text" maxlength="1" value="Espace" class="key-input"></div>
+        <div id="player-controls-container">
+            <div id="player1Controls">
+                <h3>Joueur 1 :</h3>
+                <div><label>Avancer : </label><input type="text" maxlength="1" value="Z" class="key-input"></div>
+                <div><label>Reculer : </label><input type="text" maxlength="1" value="S" class="key-input"></div>
+                <div><label>Droite : </label><input type="text" maxlength="1" value="D" class="key-input"></div>
+                <div><label>Gauche : </label><input type="text" maxlength="1" value="Q" class="key-input"></div>
+                <div><label>Tirer : </label><input type="text" maxlength="1" value="Espace" class="key-input"></div>
+            </div>
+            <div id="player2Controls">
+                <h3>Joueur 2 :</h3>
+                <div><label>Avancer : </label><input type="text" maxlength="1" value="Fl.Haut" class="key-input"></div>
+                <div><label>Reculer : </label><input type="text" maxlength="1" value="Fl.Bas" class="key-input"></div>
+                <div><label>Droite : </label><input type="text" maxlength="1" value="Fl.Droite" class="key-input"></div>
+                <div><label>Gauche : </label><input type="text" maxlength="1" value="Fl.Gauche" class="key-input"></div>
+                <div><label>Tirer : </label><input type="text" maxlength="1" value="0" class="key-input"></div>
+            </div>
+            <div id="player3Controls" style="display: none;">
+                <h3>Joueur 3 :</h3>
+                <div><label>Avancer : </label><input type="text" maxlength="1" value="O" class="key-input"></div>
+                <div><label>Reculer : </label><input type="text" maxlength="1" value="L" class="key-input"></div>
+                <div><label>Droite : </label><input type="text" maxlength="1" value="M" class="key-input"></div>
+                <div><label>Gauche : </label><input type="text" maxlength="1" value="K" class="key-input"></div>
+                <div><label>Tirer : </label><input type="text" maxlength="1" value="!" class="key-input"></div>
+            </div>
+            <div id="player4Controls" style="display: none;">
+                <h3>Joueur 4 :</h3>
+                <div><label>Avancer : </label><input type="text" maxlength="1" value="Y" class="key-input"></div>
+                <div><label>Reculer : </label><input type="text" maxlength="1" value="H" class="key-input"></div>
+                <div><label>Droite : </label><input type="text" maxlength="1" value="J" class="key-input"></div>
+                <div><label>Gauche : </label><input type="text" maxlength="1" value="G" class="key-input"></div>
+                <div><label>Tirer : </label><input type="text" maxlength="1" value="," class="key-input"></div>
+            </div>
         </div>
-        <div id="player2Controls">
-            <h3>Joueur 2 :</h3>
-            <div><label>Avancer : </label><input type="text" maxlength="1" value="Fl.Haut" class="key-input"></div>
-            <div><label>Reculer : </label><input type="text" maxlength="1" value="Fl.Bas" class="key-input"></div>
-            <div><label>Droite : </label><input type="text" maxlength="1" value="Fl.Droite" class="key-input"></div>
-            <div><label>Gauche : </label><input type="text" maxlength="1" value="Fl.Gauche" class="key-input"></div>
-            <div><label>Tirer : </label><input type="text" maxlength="1" value="0" class="key-input"></div>
-        </div>
-        
-        <button id="nextToMaps">Continuer</button>
+            
+            <button id="nextToMaps" class="button">Continuer</button>
     </div>
-
-    <div id="game">
-        <div id="gameMap"></div>
-    </div>
-
-     <div id="mapSelection" style="display: none;">
+    
+    <div id="mapSelection" style="display: none;">
         <h2>Choisissez une carte :</h2>
         <div id="map-container">
             <div class="map">
@@ -83,7 +109,17 @@
                 <p>Lac</p>
             </div>
         </div>
-        <button id="startGame">Lancer le jeu</button>
+        <button id="startGame" class="button">Lancer le jeu</button>
+    </div>
+
+    <div id="game">
+        <div id="gameMap"></div>
+    </div>
+    
+    <div id="endGame-container" style="display: none;">
+        <h1 id="message"></h1>
+        <button id="playAgain" class="button">Rejouer</button>
+        <button id="backToMenu" class="button">Revenir au menu</button>
     </div>
 
 </body>

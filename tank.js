@@ -41,8 +41,9 @@ class Tank{
         }
     }
 
-    constructor (position, angle, color, keybinds, size=Tank.DEFAULT_SIZE, shootingCooldown=Tank.DEFAULT_SHOOTING_COOLDOWN){
-        
+    constructor (position, angle, color, keybinds, playerName, size=Tank.DEFAULT_SIZE, shootingCooldown=Tank.DEFAULT_SHOOTING_COOLDOWN){
+
+        this.playerName = playerName;
         this.keybinds = keybinds;
         this.created = false;
         this.angle = angle;

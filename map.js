@@ -61,19 +61,20 @@ class GameMap{
     }
 
     load(){
-    
+        
+        GameMap.HTML.innerHTML = "";
         GameMap.HTML.style.gridTemplate = `repeat(${this.SIZE_Y}, 1fr) / repeat(${this.SIZE_X}, 1fr)`;
     
         for (let i = 0; i < this.SIZE_Y; i++) {
             for (let j = 0; j < this.SIZE_X; j++) {
                 const cell = document.createElement("div");
-                cell.classList.add("cell");
+                cell.className = "emptyCell";
                 if (this.DATA[i][j]===1){
-                    cell.style.backgroundColor = "rgb(51, 51, 51)";
+                    cell.className = "wallCell";
                 } else if (this.DATA[i][j] === 2){
                     this.spawns.push(new Vector(j+0.5, i+0.5));
                 } else if (this.DATA[i][j] === 3){
-                    cell.style.backgroundColor = "rgb(0, 166, 255)";
+                    cell.className = "waterCell";
                 }
                 GameMap.HTML.appendChild(cell);
               }
