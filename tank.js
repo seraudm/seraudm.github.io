@@ -13,7 +13,8 @@ class Tank{
     static OBSTACLE_CELLS = [1,3] // To know wich cells are considered as obstacle 
     
     static drawTanks(){
-        for (const tank of listTanks){
+        const listToBeCleared = listTanks.slice();
+        for (const tank of listToBeCleared){
             tank.draw();
         }
     }
@@ -319,7 +320,6 @@ class Tank{
             tankHtml.remove();
         }
         listTanks.splice(listTanks.indexOf(this), 1);
-        this.removed = true;
     }
 
 }

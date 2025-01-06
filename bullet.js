@@ -24,7 +24,8 @@ class Bullet {
     }
 
     static clearBullets(){
-        for (const bullet of listBullets){
+        const listToBeCleared = listBullets.slice(); // To copy the list bullets
+        for (const bullet of listToBeCleared){
             bullet.remove();
         }
     }
@@ -50,7 +51,6 @@ class Bullet {
             bulletHtml.remove();
         }
         listBullets.splice(listBullets.indexOf(this), 1);
-        this.removed = true;
     }
 
     updatePosition(dt){
